@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미쉐린 빕 구르망 서울 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root {
+    --red: #C1001A;
+    --red-light: #E8001F;
+    --cream: #F7F2EA;
+    --cream-dark: #EDE5D4;
+    --dark: #1A1008;
+    --brown: #4A2C0A;
+    --gold: #C8A84B;
+    --gray: #7A6E62;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--dark);
+    padding: 28px 48px 22px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 3px solid var(--red);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 12px,
+      rgba(193,0,26,0.04) 12px,
+      rgba(193,0,26,0.04) 13px
+    );
+  }
+  .header-left { position: relative; }
+  .header-eyebrow {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+  .header-title span {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+  }
+  .header-subtitle {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(247,242,234,0.55);
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+  .header-right { position: relative; text-align: right; }
+  .bib-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-bottom: 8px;
+    box-shadow: 0 0 30px rgba(193,0,26,0.5);
+  }
+  .bib-icon svg { width: 32px; height: 32px; fill: white; }
+  .header-count {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .header-count-label {
+    font-size: 10px;
+    color: rgba(247,242,234,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ─── NOTICE BANNER ─── */
+  .notice {
+    background: #2a1a06;
+    border-left: 4px solid var(--gold);
+    padding: 12px 48px;
+    font-size: 12.5px;
+    color: rgba(247,242,234,0.7);
+    letter-spacing: 0.2px;
+  }
+  .notice strong { color: var(--gold); }
+
+  /* ─── LAYOUT ─── */
+  .app {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    height: calc(100vh - 130px);
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    background: white;
+    border-right: 1px solid var(--cream-dark);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .search-wrap {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--cream-dark);
+    background: var(--cream);
+  }
+  .search-input {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'Noto Sans KR', sans-serif;
+    background: white;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: var(--red); }
+  .search-input::placeholder { color: #b0a89a; }
+
+  .filter-tabs {
+    display: flex;
+    padding: 10px 20px;
+    gap: 6px;
+    border-bottom: 1px solid var(--cream-dark);
+    background: var(--cream);
+    flex-wrap: wrap;
+  }
+  .filter-tab {
+    padding: 4px 10px;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 20px;
+    font-size: 11px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    background: white;
+    color: var(--gray);
+    transition: all 0.2s;
+  }
+  .filter-tab:hover, .filter-tab.active {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+  }
+
+  .list-header {
+    padding: 12px 20px 8px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--cream-dark);
+    background: var(--cream);
+  }
+
+  .restaurant-list {
+    overflow-y: auto;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: var(--cream-dark) transparent;
+  }
+  .restaurant-list::-webkit-scrollbar { width: 4px; }
+  .restaurant-list::-webkit-scrollbar-thumb { background: var(--cream-dark); border-radius: 4px; }
+
+  .restaurant-item {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--cream-dark);
+    cursor: pointer;
+    transition: background 0.15s;
+    position: relative;
+  }
+  .restaurant-item:hover { background: var(--cream); }
+  .restaurant-item.active { background: #fff5f5; border-left: 3px solid var(--red); }
+  .restaurant-item.active .r-name { color: var(--red); }
+  .restaurant-item.hidden { display: none; }
+
+  .r-name {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+  .r-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .r-tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+  .tag-korean { background: #fff0e8; color: #8B3A1A; }
+  .tag-chinese { background: #f0f5ff; color: #1A3A8B; }
+  .tag-japanese { background: #f5fff0; color: #1A6B1A; }
+  .tag-thai { background: #fffff0; color: #6B5A1A; }
+  .tag-noodle { background: #fff0f5; color: #8B1A4A; }
+  .tag-new { background: var(--red); color: white; }
+
+  .r-desc {
+    font-size: 11.5px;
+    color: var(--gray);
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .r-district {
+    font-size: 10.5px;
+    color: #b0a89a;
+    margin-top: 2px;
+  }
+
+  /* ─── MAP ─── */
+  #map {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  /* Leaflet popup override */
+  .leaflet-popup-content-wrapper {
+    border-radius: 0 !important;
+    box-shadow: 4px 4px 20px rgba(26,16,8,0.25) !important;
+    border: 2px solid var(--red) !important;
+    padding: 0 !important;
+    overflow: hidden;
+  }
+  .leaflet-popup-content {
+    margin: 0 !important;
+    width: 240px !important;
+  }
+  .leaflet-popup-tip { background: var(--red) !important; }
+  .popup-header {
+    background: var(--red);
+    padding: 12px 14px;
+  }
+  .popup-name {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+  }
+  .popup-tag { font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 3px; }
+  .popup-body { padding: 12px 14px; background: white; }
+  .popup-detail { font-size: 11.5px; color: var(--dark); line-height: 1.6; }
+  .popup-address { font-size: 11px; color: var(--gray); margin-top: 6px; display: flex; gap: 4px; }
+  .popup-hours { font-size: 10.5px; color: #888; margin-top: 4px; }
+  .popup-new-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    letter-spacing: 1px;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+  /* Custom marker */
+  .marker-pin {
+    width: 30px; height: 30px;
+    border-radius: 50% 50% 50% 0;
+    background: var(--red);
+    transform: rotate(-45deg);
+    border: 2px solid white;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.35);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .marker-pin.new-marker { background: var(--gold); }
+  .marker-num {
+    transform: rotate(45deg);
+    font-size: 9px;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--dark);
+    color: rgba(247,242,234,0.45);
+    font-size: 10px;
+    padding: 6px 48px;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 999;
+  }
+  .footer a { color: var(--gold); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="header-eyebrow">Michelin Guide Seoul &amp; Busan 2025</div>
+    <div class="header-title">빕 구르망 <span>서울</span></div>
+    <div class="header-subtitle">합리적인 가격에 훌륭한 음식을 선보이는 레스토랑 · Bib Gourmand Selection</div>
+  </div>
+  <div class="header-right">
+    <div class="bib-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 2.61 1.41 4.89 3.5 6.19V17c0 .55.45 1 1 1h5c.55 0 1-.45 1-1v-1.81C17.59 13.89 19 11.61 19 9c0-3.87-3.13-7-7-7zm-1 14v-1h2v1h-2zm3.5-5.26l-.5.29V14h-4v-2.97l-.5-.29C7.94 9.96 7 8.56 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0-.56-.94.96-2.5 1.74z"/>
+      </svg>
+    </div>
+    <div class="header-count" id="total-count">16</div>
+    <div class="header-count-label">레스토랑</div>
+  </div>
+</header>
+
+<div class="notice">
+  <strong>안내:</strong> 미쉐린 가이드 서울 &amp; 부산 2025는 <strong>서울</strong>과 <strong>부산</strong>만을 평가 범위로 합니다. 경기도는 미쉐린 평가 대상 지역에 포함되지 않아 서울 빕 구르망 대표 식당들을 표시했습니다.
+</div>
+
+<div class="app">
+  <div class="sidebar">
+    <div class="search-wrap">
+      <input type="text" class="search-input" id="search" placeholder="식당 이름 또는 음식 종류 검색…" />
+    </div>
+    <div class="filter-tabs">
+      <div class="filter-tab active" data-filter="all">전체</div>
+      <div class="filter-tab" data-filter="korean">한식</div>
+      <div class="filter-tab" data-filter="noodle">면류</div>
+      <div class="filter-tab" data-filter="new">신규</div>
+      <div class="filter-tab" data-filter="chinese">중식</div>
+      <div class="filter-tab" data-filter="japanese">일식</div>
+    </div>
+    <div class="list-header" id="list-header">16곳 표시 중</div>
+    <div class="restaurant-list" id="restaurant-list"></div>
+  </div>
+  <div id="map"></div>
+</div>
+
+<div class="footer">
+  <span>© 미쉐린 가이드 서울 &amp; 부산 2025 · 빕 구르망 서울 58곳 중 대표 16곳 수록</span>
+  <span>전체 리스트: <a href="https://guide.michelin.com/kr/ko" target="_blank">guide.michelin.com</a></span>
+</div>
+
+<script>
+const restaurants = [
+  {
+    id: 1,
+    name: "을지면옥",
+    nameEn: "Eulji Myeonok",
+    tag: "noodle",
+    tagLabel: "냉면",
+    desc: "의정부식 평양냉면 · 돼지고기+우육 육수",
+    district: "종로구 삼일대로",
+    address: "서울 종로구 삼일대로 30길 12",
+    lat: 37.5738643, lng: 126.9885883,
+    isNew: false,
+    hours: "11:00–14:30, 17:00–20:30 (일요일 휴무)"
+  },
+  {
+    id: 2,
+    name: "우래옥",
+    nameEn: "Woo Lae Oak",
+    tag: "noodle",
+    tagLabel: "냉면",
+    desc: "서울 3대 평양냉면 명가 · 1946년 창업",
+    district: "중구 창경궁로",
+    address: "서울 중구 창경궁로 62-29",
+    lat: 37.5681851, lng: 126.9987092,
+    isNew: false,
+    hours: "11:30–21:00 (월요일 휴무)"
+  },
+  {
+    id: 3,
+    name: "호라파",
+    nameEn: "Horapa",
+    tag: "thai",
+    tagLabel: "태국",
+    desc: "서촌의 정통 태국 요리 · 2024 신규 선정",
+    district: "종로구 자하문로",
+    address: "서울 종로구 자하문로 37-1",
+    lat: 37.5793824, lng: 126.97110479,
+    isNew: true,
+    hours: "11:30–15:00, 18:00–22:00 (월·일 휴무)"
+  },
+  {
+    id: 4,
+    name: "안암",
+    nameEn: "Anam",
+    tag: "korean",
+    tagLabel: "한식",
+    desc: "안국동 돼지국밥 · 고수 오일 토핑",
+    district: "종로구 북촌로",
+    address: "서울 종로구 북촌로 5길 10",
+    lat: 37.579398, lng: 126.98446229,
+    isNew: false,
+    hours: "11:30–21:00"
+  },
+  {
+    id: 5,
+    name: "흥부가",
+    nameEn: "Heungbuga",
+    tag: "korean",
+    tagLabel: "한식",
+    desc: "종로3가 보쌈 전문 · 홍어·낙지 곁들임",
+    district: "종로구",
+    address: "서울 종로구 수표로 20길 22",
+    lat: 37.5699465, lng: 126.9908203,
+    isNew: false,
+    hours: "12:00–03:00"
+  },
+  {
+    id: 6,
+    name: "남포면옥",
+    nameEn: "Nampo Myeonok",
+    tag: "noodle",
+    tagLabel: "냉면",
+    desc: "8년 연속 빕 구르망 · 평양냉면 명가",
+    district: "중구 을지로",
+    address: "서울 중구 을지로 3길 24",
+    lat: 37.567074, lng: 126.98159229,
+    isNew: false,
+    hours: "11:30–22:00"
+  },
+  {
+    id: 7,
+    name: "필동면옥",
+    nameEn: "Pildong Myeonok",
+    tag: "noodle",
+    tagLabel: "냉면",
+    desc: "서울 대표 평양냉면 · 깊고 맑은 육수",
+    district: "중구 서애로",
+    address: "서울 중구 서애로 26",
+    lat: 37.5603604, lng: 126.9969996,
+    isNew: false,
+    hours: "11:00–20:00 (일요일 휴무)"
+  },
+  {
+    id: 8,
+    name: "서령",
+    nameEn: "Seoryung",
+    tag: "noodle",
+    tagLabel: "냉면·메밀",
+    desc: "2025 신규 · 순면(메밀냉면)+들기름면",
+    district: "중구 소월로 (서울역)",
+    address: "서울 중구 소월로 10",
+    lat: 37.5585227, lng: 126.97540599,
+    isNew: true,
+    hours: "11:00–21:30"
+  },
+  {
+    id: 9,
+    name: "서교난면방",
+    nameEn: "Seogyo Nanmyeonbang",
+    tag: "noodle",
+    tagLabel: "국수",
+    desc: "마포 들기름면·이탈리안 햄 달걀국수",
+    district: "마포구 동교로",
+    address: "서울 마포구 동교로 12길 16",
+    lat: 37.5535907, lng: 126.91231630,
+    isNew: false,
+    hours: "11:00–21:00 (화요일 휴무)"
+  },
+  {
+    id: 10,
+    name: "미필담",
+    nameEn: "Mipildam",
+    tag: "korean",
+    tagLabel: "만두",
+    desc: "2025 신규 · 이북식 손만두·만두국",
+    district: "마포구 합정",
+    address: "서울 마포구 성지 3길 22",
+    lat: 37.5465836, lng: 126.91419030,
+    isNew: true,
+    hours: "11:30–20:30 (월·화 휴무)"
+  },
+  {
+    id: 11,
+    name: "진진",
+    nameEn: "Jin Jin",
+    tag: "chinese",
+    tagLabel: "중식",
+    desc: "홍대 근처 중식당 · 건새우요리 명성",
+    district: "마포구 상암동",
+    address: "서울 마포구 월드컵북로 1길 62",
+    lat: 37.5536728, lng: 126.91835590,
+    isNew: false,
+    hours: "12:00–22:00"
+  },
+  {
+    id: 12,
+    name: "사루카메",
+    nameEn: "Sarukame",
+    tag: "japanese",
+    tagLabel: "라멘",
+    desc: "연남동 해산물 라멘 · 수제 생면",
+    district: "마포구 연남동",
+    address: "서울 마포구 연남로 15",
+    lat: 37.5610311, lng: 126.92267740,
+    isNew: false,
+    hours: "11:30–15:00, 17:30–20:30"
+  },
+  {
+    id: 13,
+    name: "계월곰탕",
+    nameEn: "Kyewol Gomtang",
+    tag: "korean",
+    tagLabel: "곰탕",
+    desc: "성수 닭곰탕 · 오마카세 스타일 10석",
+    district: "성동구 성수동",
+    address: "서울 성동구 성덕정 3길 8",
+    lat: 37.5395266, lng: 127.0476224,
+    isNew: false,
+    hours: "11:00–14:30, 17:00–20:30"
+  },
+  {
+    id: 14,
+    name: "능동미나리",
+    nameEn: "Neungdong Minari",
+    tag: "korean",
+    tagLabel: "곰탕",
+    desc: "2024 신규 · 미나리 소고기 곰탕",
+    district: "용산구 한강대로",
+    address: "서울 용산구 한강대로 40길 28",
+    lat: 37.5300852, lng: 126.97078750,
+    isNew: true,
+    hours: "10:00–23:00"
+  },
+  {
+    id: 15,
+    name: "곰탕랩",
+    nameEn: "Gomtang Lab",
+    tag: "korean",
+    tagLabel: "곰탕",
+    desc: "2024 신규 · 콜라겐 사골 곰탕 (강남 현대백화점)",
+    district: "강남구 테헤란로",
+    address: "서울 강남구 테헤란로 517 현대백화점 10층",
+    lat: 37.508572, lng: 127.05973940,
+    isNew: true,
+    hours: "11:00–22:00"
+  },
+  {
+    id: 16,
+    name: "서울집",
+    nameEn: "Seouljip",
+    tag: "korean",
+    tagLabel: "한식구이",
+    desc: "을지로 돼지갈비·삼겹살 숯불구이",
+    district: "중구 을지로",
+    address: "서울 중구 을지로 44길 6",
+    lat: 37.5658763, lng: 127.0065052,
+    isNew: false,
+    hours: "11:00–23:00"
+  }
+];
+
+// ─── MAP INIT ───
+const map = L.map('map', {
+  center: [37.555, 126.985],
+  zoom: 13,
+  zoomControl: true
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap contributors © CARTO',
+  subdomains: 'abcd', maxZoom: 19
+}).addTo(map);
+
+// Tag color config
+const tagColors = {
+  korean: '#8B3A1A',
+  noodle: '#8B1A4A',
+  chinese: '#1A3A8B',
+  japanese: '#1A6B1A',
+  thai: '#6B5A1A',
+  default: '#C1001A'
+};
+
+const tagBg = {
+  korean: '#fff0e8',
+  noodle: '#fff0f5',
+  chinese: '#f0f5ff',
+  japanese: '#f5fff0',
+  thai: '#fffff0',
+};
+
+// ─── CREATE MARKERS ───
+const markers = {};
+
+restaurants.forEach((r, i) => {
+  const color = r.isNew ? '#C8A84B' : '#C1001A';
+  const textColor = 'white';
+
+  const iconHtml = `
+    <div style="
+      width:28px; height:28px;
+      background:${color};
+      border-radius:50% 50% 50% 0;
+      transform:rotate(-45deg);
+      border:2.5px solid white;
+      box-shadow:2px 2px 10px rgba(0,0,0,0.4);
+      display:flex; align-items:center; justify-content:center;
+    ">
+      <span style="transform:rotate(45deg); font-size:9px; font-weight:800; color:${textColor}; font-family:sans-serif;">${i+1}</span>
+    </div>
+  `;
+
+  const icon = L.divIcon({
+    html: iconHtml,
+    className: '',
+    iconSize: [28, 28],
+    iconAnchor: [14, 28],
+    popupAnchor: [0, -28]
+  });
+
+  const tagLabelColor = tagColors[r.tag] || tagColors.default;
+  const tagBgColor = tagBg[r.tag] || '#fee';
+  const newBadge = r.isNew ? `<div class="popup-new-badge">✦ 2024–2025 신규 선정</div>` : '';
+
+  const popup = L.popup().setContent(`
+    <div class="popup-header">
+      <div class="popup-name">${r.name}</div>
+      <div class="popup-tag">${r.nameEn} · No.${i+1}</div>
+    </div>
+    <div class="popup-body">
+      <span style="display:inline-block; background:${tagBgColor}; color:${tagLabelColor}; font-size:10px; padding:2px 8px; border-radius:3px; font-weight:600;">${r.tagLabel}</span>
+      ${newBadge}
+      <div class="popup-detail" style="margin-top:8px;">${r.desc}</div>
+      <div class="popup-address">📍 ${r.address}</div>
+      <div class="popup-hours">🕐 ${r.hours}</div>
+    </div>
+  `);
+
+  const marker = L.marker([r.lat, r.lng], { icon }).addTo(map).bindPopup(popup);
+  markers[r.id] = marker;
+});
+
+// ─── SIDEBAR LIST ───
+const listEl = document.getElementById('restaurant-list');
+let activeId = null;
+let currentFilter = 'all';
+let searchQuery = '';
+
+function renderList() {
+  listEl.innerHTML = '';
+  let count = 0;
+
+  restaurants.forEach((r, i) => {
+    const matchFilter =
+      currentFilter === 'all' ||
+      r.tag === currentFilter ||
+      (currentFilter === 'new' && r.isNew);
+    const matchSearch =
+      r.name.includes(searchQuery) ||
+      r.nameEn.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      r.tagLabel.includes(searchQuery) ||
+      r.desc.includes(searchQuery) ||
+      r.district.includes(searchQuery);
+
+    if (!matchFilter || !matchSearch) return;
+    count++;
+
+    const el = document.createElement('div');
+    el.className = 'restaurant-item' + (r.id === activeId ? ' active' : '');
+    el.dataset.id = r.id;
+
+    const tagLabelColor = tagColors[r.tag] || tagColors.default;
+    const tagBgColor = tagBg[r.tag] || '#fee';
+    const newTag = r.isNew ? `<span class="r-tag tag-new">신규</span>` : '';
+
+    el.innerHTML = `
+      <div class="r-name">${i+1}. ${r.name} <span style="font-family:'Noto Sans KR'; font-weight:300; font-size:11px; color:#a09890;">${r.nameEn}</span></div>
+      <div class="r-meta">
+        <span class="r-tag" style="background:${tagBgColor}; color:${tagLabelColor};">${r.tagLabel}</span>
+        ${newTag}
+      </div>
+      <div class="r-desc">${r.desc}</div>
+      <div class="r-district">📍 ${r.district}</div>
+    `;
+
+    el.addEventListener('click', () => {
+      activeId = r.id;
+      renderList();
+      map.setView([r.lat, r.lng], 16, { animate: true });
+      markers[r.id].openPopup();
+    });
+
+    listEl.appendChild(el);
+  });
+
+  document.getElementById('list-header').textContent = `${count}곳 표시 중`;
+  document.getElementById('total-count').textContent = count;
+}
+
+// Filter tabs
+document.querySelectorAll('.filter-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentFilter = tab.dataset.filter;
+    renderList();
+  });
+});
+
+// Search
+document.getElementById('search').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  renderList();
+});
+
+// Initial render
+renderList();
+</script>
+</body>
+</html>
