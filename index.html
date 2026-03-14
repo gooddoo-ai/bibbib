@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>미쉐린 빕 구르망 서울 2026</title>
+<title>미쉐린 가이드 서울 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -14,101 +14,119 @@
 body{font-family:'Noto Sans KR',system-ui,sans-serif;background:#FFFBF5;color:#111827;-webkit-font-smoothing:antialiased}
 
 /* HEADER */
-.header{background:linear-gradient(150deg,#7F1D1D 0%,#B91C1C 60%,#DC2626 100%);padding:28px 20px 20px;position:relative;overflow:hidden}
+.header{background:linear-gradient(150deg,#7F1D1D 0%,#B91C1C 55%,#DC2626 100%);padding:26px 20px 18px;position:relative;overflow:hidden}
 .header::after{content:’’;position:absolute;right:-30px;top:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.05);pointer-events:none}
-.header::before{content:’’;position:absolute;left:-20px;bottom:-40px;width:140px;height:140px;border-radius:50%;background:rgba(0,0,0,0.1);pointer-events:none}
 .h-inner{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
-.h-bib{width:56px;height:56px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px solid rgba(255,255,255,0.3);flex-shrink:0}
+.h-bib{width:54px;height:54px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px solid rgba(255,255,255,0.3);flex-shrink:0}
 .h-title{font-family:‘Noto Serif KR’,serif;font-size:20px;font-weight:900;color:#fff;line-height:1.25;letter-spacing:-0.5px}
 .h-sub{font-size:11px;color:rgba(255,255,255,0.6);margin-top:3px;letter-spacing:2px;text-transform:uppercase}
-.h-badge{position:relative;z-index:1;margin-top:16px;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);border-radius:20px;padding:7px 16px;font-size:12px;color:rgba(255,255,255,0.9)}
+.h-badges{position:relative;z-index:1;margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.h-badge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:6px 13px;font-size:11px;font-weight:600}
+.hb-star{background:rgba(234,179,8,0.25);border:1px solid rgba(234,179,8,0.4);color:#FCD34D}
+.hb-bib{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:rgba(255,255,255,0.9)}
 
 /* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);background:#1F2937}
-.stat{padding:13px 4px;text-align:center}
-.sn{font-family:‘Noto Serif KR’,serif;font-size:22px;font-weight:700;color:#FCD34D;line-height:1}
-.sl{font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);background:#1F2937}
+.stat{padding:11px 4px;text-align:center}
+.sn{font-family:‘Noto Serif KR’,serif;font-size:18px;font-weight:700;line-height:1}
+.sn.gold{color:#FCD34D}.sn.red{color:#FCA5A5}.sn.white{color:#fff}
+.sl{font-size:9px;color:rgba(255,255,255,0.4);margin-top:3px;white-space:nowrap}
 
 /* FILTERS */
-.filters{background:#fff;border-bottom:1px solid #E5E7EB;padding:12px 16px 0}
-.flabel{font-size:10px;font-weight:700;color:#9CA3AF;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
-.chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+.filters{background:#fff;border-bottom:1px solid #E5E7EB;padding:10px 16px 0}
+.flabel{font-size:10px;font-weight:700;color:#9CA3AF;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex-shrink:0;padding:7px 15px;border-radius:20px;border:1.5px solid #E5E7EB;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;font-family:‘Noto Sans KR’,sans-serif;white-space:nowrap}
-.chip.on{background:#B91C1C;color:#fff;border-color:#7F1D1D}
+.chip{flex-shrink:0;padding:6px 13px;border-radius:18px;border:1.5px solid #E5E7EB;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;font-family:‘Noto Sans KR’,sans-serif;white-space:nowrap}
+.chip.on{color:#fff;border-color:transparent}
+.chip.on.type-all{background:#1F2937}
+.chip.on.type-star3{background:#92400E}
+.chip.on.type-star2{background:#B45309}
+.chip.on.type-star1{background:#D97706}
+.chip.on.type-bib{background:#B91C1C}
+.chip.on.type-area{background:#1D4ED8}
+.chip.on.type-food{background:#065F46}
 
 /* MAP */
 #map{height:300px;width:100%;border-bottom:3px solid #B91C1C}
-.leaflet-popup-content-wrapper{border-radius:12px!important;box-shadow:0 6px 24px rgba(0,0,0,0.15)!important;font-family:‘Noto Sans KR’,sans-serif!important;padding:4px!important}
+.leaflet-popup-content-wrapper{border-radius:12px!important;box-shadow:0 6px 24px rgba(0,0,0,0.15)!important;font-family:‘Noto Sans KR’,sans-serif!important}
 .leaflet-popup-content{margin:12px 14px!important}
-.pw .pn{font-family:‘Noto Serif KR’,serif;font-size:14px;font-weight:700;color:#111827}
-.pw .ps{font-size:11px;color:#6B7280;margin-top:4px;line-height:1.6}
-.pw .pt{display:inline-block;font-size:10px;font-weight:600;color:#fff;padding:2px 8px;border-radius:5px;margin-top:5px}
-.ptred{background:#B91C1C}.ptgreen{background:#166534}
+.pn{font-family:‘Noto Serif KR’,serif;font-size:14px;font-weight:700;color:#111827}
+.ps{font-size:11px;color:#6B7280;margin-top:4px;line-height:1.6}
+.pt{display:inline-block;font-size:10px;font-weight:700;color:#fff;padding:2px 8px;border-radius:5px;margin-top:5px}
 
 /* LIST HEADER */
-.lhead{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #E5E7EB;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.lhead{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid #E5E7EB;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
 .lht{font-size:14px;font-weight:700;color:#111827}
 .lhc{font-size:12px;color:#6B7280;background:#F3F4F6;padding:3px 10px;border-radius:10px}
 
 /* CARDS */
 .clist{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
 .card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.07);border:1.5px solid #F3F4F6;animation:upIn .22s ease both}
-.card.hl{border:2px solid #B91C1C;box-shadow:0 4px 20px rgba(185,28,28,0.14)}
+.card.hl-bib{border:2px solid #B91C1C;box-shadow:0 4px 20px rgba(185,28,28,0.15)}
+.card.hl-star{border:2px solid #D97706;box-shadow:0 4px 20px rgba(217,119,6,0.2)}
 @keyframes upIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-/* CARD TOP */
+/* stripe colors */
+.cs-3star{background:linear-gradient(180deg,#92400E,#D97706)}
+.cs-2star{background:linear-gradient(180deg,#B45309,#F59E0B)}
+.cs-1star{background:#D97706}
+.cs-bib{background:#B91C1C}
+.cs-bib-new{background:#166534}
+
 .ctop{display:flex;align-items:stretch;cursor:pointer}
 .cstripe{width:5px;flex-shrink:0}
-.cstripe.red{background:#B91C1C}
-.cstripe.green{background:#166534}
-.cbody{flex:1;padding:13px 10px 13px 13px;min-width:0}
-.cname{font-family:‘Noto Serif KR’,serif;font-size:16px;font-weight:700;color:#111827}
-.crow2{display:flex;align-items:center;gap:7px;margin-top:5px;flex-wrap:wrap}
+.cbody{flex:1;padding:12px 10px 12px 13px;min-width:0}
+.crow1{display:flex;align-items:flex-start;justify-content:space-between;gap:6px}
+.cname{font-family:‘Noto Serif KR’,serif;font-size:16px;font-weight:700;color:#111827;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cbadges{display:flex;align-items:center;gap:4px;flex-shrink:0;margin-top:2px;flex-wrap:wrap;justify-content:flex-end}
+.ctag{font-size:10px;font-weight:700;color:#fff;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.t3{background:linear-gradient(90deg,#92400E,#D97706)}.t2{background:#B45309}.t1{background:#D97706}.tbib{background:#B91C1C}.tnew{background:#166534}
+.cstars{font-size:13px;letter-spacing:-1px}
+.crow2{margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .carea{font-size:12px;color:#9CA3AF}
-.ctag{font-size:11px;font-weight:600;color:#fff;padding:2px 8px;border-radius:5px;white-space:nowrap}
-.tagr{background:#B91C1C}.tagg{background:#166534}
-.crow3{margin-top:6px}
-.cprice{font-size:12px;font-weight:700;color:#B91C1C}
+.ccat{font-size:11px;background:#F3F4F6;color:#374151;padding:1px 8px;border-radius:6px}
+.crow3{margin-top:5px}
+.cprice{font-size:12px;font-weight:700}
+.cprice.star-price{color:#D97706}.cprice.bib-price{color:#B91C1C}
 .cmenu{font-size:12px;color:#6B7280;font-style:italic;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:95%}
-.cchev{flex-shrink:0;padding:14px 14px 14px 4px;display:flex;align-items:center;color:#9CA3AF;font-size:20px;transition:transform .2s}
+.cchev{flex-shrink:0;padding:13px 13px 13px 4px;display:flex;align-items:center;color:#9CA3AF;font-size:20px;transition:transform .2s}
 .cchev.open{transform:rotate(180deg)}
 
-/* CARD DETAIL */
+/* DETAIL */
 .cdet{display:none;border-top:1px solid #F3F4F6;background:#FAFAFA}
 .cdet.open{display:block}
 .cdsec{padding:14px 16px;display:flex;flex-direction:column;gap:11px}
-
-.cdesc{background:#fff;border-radius:10px;padding:12px 14px;font-size:13px;color:#374151;line-height:1.8;border-left:3px solid #B91C1C}
-
+.cdesc{background:#fff;border-radius:10px;padding:12px 14px;font-size:13px;color:#374151;line-height:1.8}
+.cdesc.bdr-bib{border-left:3px solid #B91C1C}
+.cdesc.bdr-star{border-left:3px solid #D97706}
 .cdrow{display:flex;gap:10px;align-items:flex-start}
 .cdic{width:32px;height:32px;border-radius:8px;background:#F3F4F6;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.cdtx{}
 .cdlb{font-size:10px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px}
 .cdvl{font-size:13px;color:#111827;margin-top:2px;line-height:1.6}
 .cdvl a{color:#B91C1C;text-decoration:none;font-weight:600}
-.cdvl a:hover{text-decoration:underline}
-
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:3px}
 .mi{background:#fff;border-radius:9px;padding:9px 11px;border:1px solid #E5E7EB}
 .min{font-size:12px;font-weight:600;color:#111827}
-.mip{font-size:11px;color:#D97706;font-weight:700;margin-top:2px}
+.mip{font-size:11px;font-weight:700;margin-top:2px}
+.mip.star-mip{color:#D97706}.mip.bib-mip{color:#B91C1C}
 
-/* ACTION BUTTONS */
+/* ACTION */
 .actrow{display:flex;gap:7px;padding:0 16px 15px}
 .abtn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:11px 6px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:‘Noto Sans KR’,sans-serif;text-decoration:none;border:none}
 .abtn:active{opacity:.75}
-.abmap{background:#B91C1C;color:#fff}
-.abcall{background:#1F2937;color:#fff}
-.abnav{background:#03C75A;color:#fff}
+.abmap{background:#B91C1C;color:#fff}.abcall{background:#1F2937;color:#fff}.abnav{background:#03C75A;color:#fff}
 
-/* EMPTY */
-.empty{text-align:center;padding:64px 20px;color:#9CA3AF}
+/* DIVIDER */
+.section-divider{padding:10px 16px 4px;font-size:11px;font-weight:700;color:#9CA3AF;letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.section-divider::after{content:’’;flex:1;height:1px;background:#E5E7EB}
+
+.empty{text-align:center;padding:60px 20px;color:#9CA3AF}
 .eico{font-size:48px;margin-bottom:12px}
 
-/* FOOTER */
 footer{background:#1F2937;color:rgba(255,255,255,0.35);text-align:center;padding:24px 16px;font-size:11px;line-height:2.2;margin-top:16px}
 footer a{color:rgba(252,211,77,0.65);text-decoration:none}
+.copyright{color:rgba(255,255,255,0.6);font-weight:600;font-size:12px}
 </style>
 
 </head>
@@ -116,37 +134,44 @@ footer a{color:rgba(252,211,77,0.65);text-decoration:none}
 
 <div class="header">
   <div class="h-inner">
-    <div class="h-bib">🍜</div>
+    <div class="h-bib">⭐</div>
     <div>
-      <div class="h-title">미쉐린 빕 구르망 서울</div>
-      <div class="h-sub">Michelin Guide · Bib Gourmand 2026</div>
+      <div class="h-title">미쉐린 가이드 서울 2026</div>
+      <div class="h-sub">MICHELIN Guide Seoul 2026</div>
     </div>
   </div>
-  <div class="h-badge">⭐ &nbsp;1인 45,000원 이하 · 미쉐린이 인정한 가성비 맛집</div>
+  <div class="h-badges">
+    <span class="h-badge hb-star">⭐ 스타 레스토랑 · 여행할 가치가 있는 곳</span>
+    <span class="h-badge hb-bib">🍜 빕 구르망 · 45,000원 이하 가성비</span>
+  </div>
 </div>
 
 <div class="stats">
-  <div class="stat"><div class="sn">51</div><div class="sl">서울 선정</div></div>
-  <div class="stat"><div class="sn">5</div><div class="sl">2026 신규</div></div>
-  <div class="stat"><div class="sn">₩45K</div><div class="sl">1인 이하</div></div>
-  <div class="stat"><div class="sn">10+</div><div class="sl">장르 다양</div></div>
+  <div class="stat"><div class="sn gold">1</div><div class="sl">⭐⭐⭐ 3스타</div></div>
+  <div class="stat"><div class="sn gold">10</div><div class="sl">⭐⭐ 2스타</div></div>
+  <div class="stat"><div class="sn gold">31</div><div class="sl">⭐ 1스타</div></div>
+  <div class="stat"><div class="sn red">51</div><div class="sl">🍜 빕구르망</div></div>
+  <div class="stat"><div class="sn white">233</div><div class="sl">총 선정</div></div>
 </div>
 
 <div class="filters">
-  <div class="flabel">지역 / 장르로 보기</div>
+  <div class="flabel">등급 / 지역 / 장르</div>
   <div class="chips" id="chips">
-    <button class="chip on" data-f="all">🗺 전체</button>
-    <button class="chip" data-f="new">🆕 2026 신규</button>
-    <button class="chip" data-f="종로·중구">🏯 종로·중구</button>
-    <button class="chip" data-f="마포·홍대">🌉 마포·홍대</button>
-    <button class="chip" data-f="강남·서초">🏙 강남·서초</button>
-    <button class="chip" data-f="용산·이태원">🌏 용산</button>
-    <button class="chip" data-f="기타지역">📍 기타</button>
-    <button class="chip" data-f="냉면">❄️ 냉면</button>
-    <button class="chip" data-f="국물요리">🍲 국물</button>
-    <button class="chip" data-f="육류">🥩 육류</button>
-    <button class="chip" data-f="면류">🍜 면류</button>
-    <button class="chip" data-f="비건">🌱 비건</button>
+    <button class="chip on type-all"  data-f="all">🗺 전체</button>
+    <button class="chip type-star3"   data-f="3star">⭐⭐⭐ 3스타</button>
+    <button class="chip type-star2"   data-f="2star">⭐⭐ 2스타</button>
+    <button class="chip type-star1"   data-f="1star">⭐ 1스타</button>
+    <button class="chip type-bib"     data-f="bib">🍜 빕구르망</button>
+    <button class="chip type-bib"     data-f="new">🆕 2026 신규</button>
+    <button class="chip type-area"    data-f="종로·중구">🏯 종로·중구</button>
+    <button class="chip type-area"    data-f="마포·홍대">🌉 마포·홍대</button>
+    <button class="chip type-area"    data-f="강남·서초">🏙 강남·서초</button>
+    <button class="chip type-area"    data-f="용산·이태원">🌏 용산</button>
+    <button class="chip type-food"    data-f="냉면">❄️ 냉면</button>
+    <button class="chip type-food"    data-f="국물요리">🍲 국물</button>
+    <button class="chip type-food"    data-f="육류">🥩 육류</button>
+    <button class="chip type-food"    data-f="한식">🍱 한식</button>
+    <button class="chip type-food"    data-f="일식">🍱 일식·스시</button>
   </div>
 </div>
 
@@ -154,227 +179,313 @@ footer a{color:rgba(252,211,77,0.65);text-decoration:none}
 
 <div class="lhead">
   <div class="lht">🍴 식당 목록</div>
-  <div class="lhc" id="cnt">25곳</div>
+  <div class="lhc" id="cnt">...</div>
 </div>
 
 <div class="clist" id="cards"></div>
 
 <footer>
-  © 2026 정임두 Im Doo Jung. All rights reserved.<br><br>
-  📖 출처: <a href="https://guide.michelin.com/kr/ko" target="_blank">미쉐린 가이드 공식 웹사이트</a>&nbsp;|&nbsp;<a href="https://guide.michelin.com/kr/ko/article/michelin-guide-ceremony/korea-bib-gourmand-2026" target="_blank">2026 빕 구르망 전체 리스트</a><br>
-  ⚠️ 전화번호·영업시간은 변경될 수 있으니 방문 전 확인을 권장합니다<br>
+  <div class="copyright">© 2026 정임두 Im Doo Jung. All rights reserved.</div>
+  <br>
+  📖 출처: <a href="https://guide.michelin.com/kr/ko" target="_blank">미쉐린 가이드 공식 웹사이트</a>&nbsp;|&nbsp;<a href="https://guide.michelin.com/kr/ko/article/michelin-guide-ceremony/korea-bib-gourmand-2026" target="_blank">2026 빕 구르망 리스트</a><br>
+  ⚠️ 전화번호·영업시간은 변경될 수 있으니 방문 전 확인 권장<br>
   지도 © <a href="https://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors · Leaflet
 </footer>
 
 <script>
+// ─── grade: "3star" | "2star" | "1star" | "bib"
 const R=[
-// ─── 종로·중구 ───
-{id:1,name:"우래옥",area:"종로·중구",district:"중구 주교동",cat:"냉면",icon:"❄️",tags:["냉면","면류"],isNew:false,
- lat:37.5664,lng:126.9955,
- address:"서울 중구 창경궁로5길 13",phone:"02-2265-0151",
- hours:"월~토 11:30–21:00 (브레이크 15:00–17:00) / 일요일 휴무",
- price:"평양냉면 19,000원~",
- desc:"1946년 개업, 서울 평양냉면의 정점으로 불리는 곳. 한우 양지·사태만을 고집해 끓인 깊고 묵직한 육수와 높은 메밀 함량의 쫄깃한 면발이 특징. 동치미를 섞지 않아 육향이 강하고 간이 약간 센 편. 미쉐린 빕 구르망 연속 선정.",
+
+/* ════════════════════ 3스타 ════════════════════ */
+{id:101,name:"밍글스",grade:"3star",area:"강남·서초",district:"강남구 청담동",
+ cat:"컨템퍼러리 한식",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5249,lng:127.0398,
+ address:"서울 강남구 도산대로67길 19 힐탑빌딩 2층",phone:"02-515-7306",
+ hours:"런치 12:00–14:00 / 디너 18:00–21:00 / 월·일 휴무 (예약 필수)",
+ price:"런치 190,000 · 디너 320,000원~",
+ desc:"강민구 셰프가 이끄는 한국 최고의 파인다이닝. 2년 연속 미쉐린 3스타 유일. 장·발효·제철 식재료를 현대적 감각으로 재해석한 컨템퍼러리 한식 코스. 한국의 미학을 담은 공간과 섬세한 서비스, 흔들림 없는 높은 완성도.",
+ menus:[{n:"런치 코스",p:"190,000"},{n:"디너 코스",p:"320,000"},{n:"와인 페어링",p:"별도"}]},
+
+/* ════════════════════ 2스타 ════════════════════ */
+{id:201,name:"라연",grade:"2star",area:"종로·중구",district:"중구 신라호텔",
+ cat:"전통 한식",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5556,lng:127.0054,
+ address:"서울 중구 동호로 249 신라호텔 23층",phone:"02-2230-3367",
+ hours:"런치 12:00–14:30 / 디너 18:00–21:00 / 월 휴무 (예약 필수)",
+ price:"런치코스 185,000 · 신라코스 290,000원~",
+ desc:"신라호텔 23층에서 한국 전통의 맛과 현대적 세련미를 결합한 최고의 한식을 선보이는 곳. 2스타를 꾸준히 유지하는 서울 한식 파인다이닝의 상징적 존재.",
+ menus:[{n:"라연 런치코스",p:"185,000"},{n:"신라 디너코스",p:"290,000"},{n:"주류 페어링",p:"별도"}]},
+
+{id:202,name:"정식당",grade:"2star",area:"강남·서초",district:"강남구 신사동",
+ cat:"컨템퍼러리 한식",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5252,lng:127.0262,
+ address:"서울 강남구 선릉로158길 11",phone:"02-517-4654",
+ hours:"런치 12:00–14:00 / 디너 18:00–21:30 / 일 휴무 (예약 필수)",
+ price:"런치코스 185,000 · 디너코스 280,000원~",
+ desc:"임정식 셰프의 대표 레스토랑. 한국의 전통 식재료와 발효를 현대 파인다이닝으로 풀어낸다. 세계적으로도 인정받는 한식 파인다이닝의 선구자적 존재.",
+ menus:[{n:"런치 시그니처코스",p:"185,000"},{n:"디너 시그니처코스",p:"280,000"},{n:"와인 페어링",p:"별도"}]},
+
+{id:203,name:"권숙수",grade:"2star",area:"강남·서초",district:"강남구 압구정",
+ cat:"전통 한식",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5276,lng:127.0330,
+ address:"서울 강남구 압구정로80길 37",phone:"02-542-6268",
+ hours:"런치 12:00–14:00 / 디너 18:00–21:00 / 일 휴무 (예약 필수)",
+ price:"미식상 코스 200,000원~",
+ desc:"권우중 셰프의 한식 오마카세. 절기·계절에 따라 메뉴가 바뀌는 정통 한식 코스. 한옥에서 영감받은 고즈넉한 공간과 함께 한국 식문화의 정수를 경험할 수 있는 곳.",
+ menus:[{n:"미식상(런치)",p:"200,000~"},{n:"미식상(디너)",p:"250,000~"},{n:"발효차 페어링",p:"별도"}]},
+
+{id:204,name:"알렌",grade:"2star",area:"강남·서초",district:"강남구 청담동",
+ cat:"컨템퍼러리",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5247,lng:127.0408,
+ address:"서울 강남구 압구정로60길 33",phone:"02-549-4141",
+ hours:"런치 12:00–13:30 / 디너 18:00–20:30 / 월·일 휴무 (예약 필수)",
+ price:"코스 250,000원~",
+ desc:"에드워드 권 셰프의 시그니처 레스토랑. 서양 파인다이닝 기법에 한국 식재료를 결합한 세련된 코스. 정제된 서비스와 혁신적인 요리 철학으로 꾸준히 2스타를 유지.",
+ menus:[{n:"런치 코스",p:"250,000"},{n:"디너 코스",p:"350,000"},{n:"와인 페어링",p:"별도"}]},
+
+{id:205,name:"스와니예",grade:"2star",area:"강남·서초",district:"강남구 신사동",
+ cat:"컨템퍼러리",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5198,lng:127.0219,
+ address:"서울 강남구 강남대로 652 신사스퀘어 2층",phone:"02-542-7722",
+ hours:"런치 12:00–14:00 / 디너 18:30–21:00 / 월 휴무 (예약 필수)",
+ price:"런치코스 170,000 · 디너코스 270,000원~",
+ desc:"이준 셰프의 컨템퍼러리 다이닝. 한국 식문화에서 영감을 받아 서사처럼 풀어내는 코스. 계절마다 새롭게 구성되는 에피소드 메뉴, 정교한 테크닉으로 한국적 기억과 미감을 표현.",
+ menus:[{n:"런치 코스",p:"170,000"},{n:"디너 코스",p:"270,000"},{n:"페어링",p:"별도"}]},
+
+{id:206,name:"미토우",grade:"2star",area:"강남·서초",district:"강남구 청담동",
+ cat:"일식·스시",icon:"⭐",tags:["일식"],isNew:false,
+ lat:37.5261,lng:127.0414,
+ address:"서울 강남구 도산대로70길 24 1층",phone:"02-511-9494",
+ hours:"디너 18:00–21:00 / 월·일 휴무 (예약 필수)",
+ price:"오마카세 코스 350,000원~",
+ desc:"도쿄에서 수련한 셰프가 운영하는 정통 일식 오마카세. 2026년 미쉐린 그린 스타도 동시 획득. 제철 식재료를 완벽하게 활용한 일본 전통 기법과 예술적인 플레이팅이 특징.",
+ menus:[{n:"오마카세 코스",p:"350,000~"},{n:"디저트 페어링",p:"별도"},{n:"청주·사케 페어링",p:"별도"}]},
+
+{id:207,name:"알라 프리마",grade:"2star",area:"강남·서초",district:"강남구 학동",
+ cat:"컨템퍼러리",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5172,lng:127.0298,
+ address:"서울 강남구 학동로17길 13 인본빌딩",phone:"02-512-8383",
+ hours:"런치 12:00–13:30 / 디너 18:30–21:00 / 월·일 휴무 (예약 필수)",
+ price:"코스 200,000원~",
+ desc:"혁신적인 접근으로 평범한 재료를 창의적인 요리로 변신시키는 레스토랑. 한국의 계절감을 살린 독특한 해석, 인상적인 와인 셀렉션과 함께 빛나는 2스타 파인다이닝.",
+ menus:[{n:"런치 코스",p:"200,000"},{n:"디너 코스",p:"280,000"},{n:"와인 페어링",p:"별도"}]},
+
+{id:208,name:"소수헌",grade:"2star",area:"강남·서초",district:"강남구 청담동",
+ cat:"일식·스시",icon:"⭐",tags:["일식"],isNew:true,
+ lat:37.5255,lng:127.0420,
+ address:"서울 강남구 청담동 (예약 후 위치 안내)",phone:"예약 후 안내",
+ hours:"디너만 운영 / 완전 예약제 (인스타그램 @sosuheon_official)",
+ price:"오마카세 코스 400,000원~",
+ desc:"박경재 셰프의 8석 카운터 스시 오마카세. 2026년 1스타→2스타 승급. 조용하고 절제된 분위기에서 장인의 손끝을 가까이서 감상. 대게·어란·벚꽃도미 찜 등 다채로운 요리 후 니기리로 완성.",
+ menus:[{n:"오마카세 코스",p:"400,000~"},{n:"음료 페어링",p:"별도"}]},
+
+{id:209,name:"모수",grade:"2star",area:"용산·이태원",district:"용산구",
+ cat:"컨템퍼러리",icon:"⭐",tags:["한식"],isNew:true,
+ lat:37.5348,lng:126.9930,
+ address:"서울 용산구 이태원동 (예약 후 위치 안내)",phone:"예약 후 안내",
+ hours:"런치·디너 / 완전 예약제",
+ price:"코스 300,000원~",
+ desc:"안성재 셰프(흑백요리사 심사위원)의 레스토랑. 재오픈 후 2026년 바로 2스타 획득. 전복 타코·참깨 두부·우엉 타르트 등 예상 밖의 풍미와 흥미로운 식감. 깊은 풍미의 사워도우와 섬세한 생선 요리가 시그니처.",
+ menus:[{n:"런치 코스",p:"300,000~"},{n:"디너 코스",p:"400,000~"},{n:"페어링",p:"별도"}]},
+
+{id:210,name:"코지마",grade:"2star",area:"강남·서초",district:"강남구",
+ cat:"일식·스시",icon:"⭐",tags:["일식"],isNew:false,
+ lat:37.5230,lng:127.0370,
+ address:"서울 강남구 청담동",phone:"02-518-9838",
+ hours:"디너 18:00~21:30 / 완전 예약제",
+ price:"오마카세 300,000원~",
+ desc:"정통 일식 오마카세 레스토랑. 엄선한 제철 식재료와 숙련된 일본 요리 기법으로 완성되는 코스. 단아하고 절제된 공간 속 완성도 높은 일식의 정수를 서울에서 경험.",
+ menus:[{n:"오마카세 코스",p:"300,000~"},{n:"음료 페어링",p:"별도"}]},
+
+/* ════════════════════ 1스타 (주요) ════════════════════ */
+{id:301,name:"밍글스 바",grade:"1star",area:"강남·서초",district:"강남구 청담동",
+ cat:"컨템퍼러리",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5248,lng:127.0395,
+ address:"서울 강남구 도산대로67길 17",phone:"02-518-1033",
+ hours:"17:00–02:00 / 월 휴무",
+ price:"코스 120,000원~",
+ desc:"밍글스 3스타 셰프팀이 운영하는 바 다이닝. 가볍지만 수준 높은 미식을 경험할 수 있는 공간. 페어링 드링크와 함께하는 아방가르드한 소품 요리들이 특징.",
+ menus:[{n:"시그니처 코스",p:"120,000~"},{n:"단품 요리",p:"30,000~"},{n:"칵테일 페어링",p:"별도"}]},
+
+{id:302,name:"온지음",grade:"1star",area:"종로·중구",district:"종로구 서촌",
+ cat:"전통 한식",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5780,lng:126.9713,
+ address:"서울 종로구 효자로 49 4층",phone:"02-733-0202",
+ hours:"런치 12:00–14:00 / 디너 18:00–20:30 / 월 휴무 (예약 필수)",
+ price:"런치 140,000 · 디너 220,000원~",
+ desc:"전통 한식 연구소 온지음이 운영하는 파인다이닝. 사라져가는 전통 음식과 조리법을 연구·복원해 현대적 한상차림으로 선보인다. 한국 식문화 보존과 혁신의 가교 역할.",
+ menus:[{n:"런치 코스",p:"140,000"},{n:"디너 코스",p:"220,000"},{n:"전통주 페어링",p:"별도"}]},
+
+{id:303,name:"소울",grade:"1star",area:"용산·이태원",district:"용산구 해방촌",
+ cat:"컨템퍼러리 한식",icon:"⭐",tags:["한식"],isNew:true,
+ lat:37.5398,lng:126.9888,
+ address:"서울 용산구 신흥로 42",phone:"02-792-7770",
+ hours:"디너 18:00–21:00 / 월·화 휴무 (예약 필수)",
+ price:"디너 코스 190,000원~",
+ desc:"김희은 셰프(흑백요리사 백수저 출연)의 해방촌 레스토랑. 2026 신규 1스타 획득. 한국 식재료와 전통 조리 방식을 현대적 감각으로 풀어낸 정교한 코스. '아기 맹수' 김시현 셰프의 스승으로도 유명.",
+ menus:[{n:"디너 코스",p:"190,000~"},{n:"와인 페어링",p:"별도"}]},
+
+{id:304,name:"가겐 바이 최준호",grade:"1star",area:"강남·서초",district:"강남구",
+ cat:"일식",icon:"⭐",tags:["일식"],isNew:true,
+ lat:37.5256,lng:127.0389,
+ address:"서울 강남구 청담동",phone:"02-515-5589",
+ hours:"디너 18:00–21:00 / 월·일 휴무 (예약 필수)",
+ price:"코스 200,000원~",
+ desc:"최현아·원진희 부부 셰프의 일식 레스토랑. 원진희 셰프는 도쿄 쿠로기, 최현아 셰프는 칸다에서 수련. 일식 특유의 계절감이 뚜렷한 코스가 특징. 2026 신규 1스타 선정.",
+ menus:[{n:"오마카세 코스",p:"200,000~"},{n:"음료 페어링",p:"별도"}]},
+
+{id:305,name:"스시 마츠모토",grade:"1star",area:"강남·서초",district:"강남구 청담동",
+ cat:"일식·스시",icon:"⭐",tags:["일식"],isNew:false,
+ lat:37.5253,lng:127.0406,
+ address:"서울 강남구 도산대로75길 24 1층",phone:"02-514-6767",
+ hours:"런치 12:00 / 디너 18:00·20:30 (회차제) / 일 휴무 (예약 필수)",
+ price:"런치오마카세 180,000 · 디너오마카세 330,000원~",
+ desc:"일본 정통 에도마에 스시를 서울에서 경험할 수 있는 스시 오마카세. 엄선된 제철 식재료와 장인의 기술이 결합된 코스. 조용하고 정돈된 카운터에서 셰프의 작업을 가까이서 감상.",
+ menus:[{n:"런치 오마카세",p:"180,000"},{n:"디너 오마카세",p:"330,000"},{n:"사케 페어링",p:"별도"}]},
+
+{id:306,name:"세븐스도어",grade:"1star",area:"강남·서초",district:"강남구",
+ cat:"컨템퍼러리",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5215,lng:127.0309,
+ address:"서울 강남구 학동로97길 41 4층",phone:"02-548-2525",
+ hours:"런치 12:00–14:00 / 디너 18:00–21:00 / 월 휴무 (예약 필수)",
+ price:"런치코스 150,000 · 디너코스 280,000원~",
+ desc:"발효·숙성·계절의 개념을 중심으로 한 독창적인 파인다이닝. 땅과 바다가 만나는 한 접시의 여정이라는 철학 아래 섬세한 코스를 구성. 와인 셀렉션도 높은 평가를 받는 곳.",
+ menus:[{n:"런치 코스",p:"150,000"},{n:"디너 코스",p:"280,000"},{n:"와인 페어링",p:"별도"}]},
+
+{id:307,name:"기와강",grade:"1star",area:"강남·서초",district:"강남구",
+ cat:"컨템퍼러리 한식",icon:"⭐",tags:["한식"],isNew:false,
+ lat:37.5220,lng:127.0380,
+ address:"서울 강남구 청담동",phone:"02-512-2991",
+ hours:"런치 12:00–14:00 / 디너 18:00–21:00 / 월 휴무 (예약 필수)",
+ price:"코스 180,000원~",
+ desc:"2026 미쉐린 소믈리에 어워드 수상 (이정인 소믈리에). 한국 전통 재료를 현대적으로 재해석한 코스와 함께 열정적이고 세심한 와인 서비스가 돋보이는 파인다이닝.",
+ menus:[{n:"런치 코스",p:"180,000~"},{n:"디너 코스",p:"250,000~"},{n:"와인 페어링(어워드)",p:"별도"}]},
+
+/* ════════════════════ 빕 구르망 ════════════════════ */
+{id:1,name:"우래옥",grade:"bib",area:"종로·중구",district:"중구 주교동",cat:"냉면",icon:"❄️",tags:["냉면","면류"],isNew:false,
+ lat:37.5664,lng:126.9955,address:"서울 중구 창경궁로5길 13",phone:"02-2265-0151",
+ hours:"월~토 11:30–21:00 (브레이크 15:00–17:00) / 일 휴무",price:"평양냉면 19,000원~",
+ desc:"1946년 개업, 서울 평양냉면의 정점. 한우 양지·사태만 고집해 끓인 깊고 묵직한 육수. 미쉐린 빕 구르망 연속 선정. 간이 강한 편이라 초심자도 즐길 수 있는 맛.",
  menus:[{n:"평양냉면",p:"19,000"},{n:"김치말이냉면",p:"21,000"},{n:"불고기",p:"35,000"},{n:"갈비찜",p:"50,000"}]},
 
-{id:2,name:"하동관",area:"종로·중구",district:"중구 명동",cat:"국물요리",icon:"🍲",tags:["국물요리"],isNew:false,
- lat:37.5620,lng:126.9857,
- address:"서울 중구 명동9길 12",phone:"02-776-5656",
- hours:"매일 07:00–16:00 (재료 소진 시 조기 마감)",
- price:"곰탕 13,000원~",
- desc:"1939년 창업, 85년 전통의 서울 곰탕 명가. 사골 없이 소고기와 내장만으로 맛을 낸 맑고 깊은 국물이 특징. 재료 소진 시 일찍 마감하니 오전 방문을 추천. 아침 일찍부터 줄이 서는 명소.",
- menus:[{n:"곰탕",p:"13,000"},{n:"특곰탕",p:"15,000"},{n:"수육(소)",p:"40,000"},{n:"깍두기",p:"기본제공"}]},
+{id:2,name:"하동관",grade:"bib",area:"종로·중구",district:"중구 명동",cat:"국물요리",icon:"🍲",tags:["국물요리"],isNew:false,
+ lat:37.5620,lng:126.9857,address:"서울 중구 명동9길 12",phone:"02-776-5656",
+ hours:"매일 07:00–16:00 (재료 소진 시 조기 마감)",price:"곰탕 13,000원~",
+ desc:"1939년 창업, 85년 전통의 서울 곰탕 명가. 사골 없이 소고기와 내장만으로 맛을 낸 맑고 깊은 국물. 재료 소진 시 마감하니 오전 방문 추천.",
+ menus:[{n:"곰탕",p:"13,000"},{n:"특곰탕",p:"15,000"},{n:"수육(소)",p:"40,000"}]},
 
-{id:3,name:"봉피양",area:"종로·중구",district:"종로구",cat:"냉면",icon:"❄️",tags:["냉면","면류"],isNew:false,
- lat:37.5732,lng:126.9903,
- address:"서울 종로구 창경궁로 62-29",phone:"02-322-0077",
- hours:"매일 11:30–21:30 (브레이크 15:00–17:00)",
- price:"물냉면 19,000원~",
- desc:"우래옥 계열 평양냉면 전문점. 한우 사태 육수에 간장으로 간을 맞춘 맑고 담백한 국물이 일품. 압구정 봉밀가에서 분리된 브랜드로 전통을 이어가는 곳. 고기 식사 후 냉면으로 마무리하는 코스도 인기.",
+{id:3,name:"봉피양",grade:"bib",area:"종로·중구",district:"종로구",cat:"냉면",icon:"❄️",tags:["냉면"],isNew:false,
+ lat:37.5732,lng:126.9903,address:"서울 종로구 창경궁로 62-29",phone:"02-322-0077",
+ hours:"매일 11:30–21:30 (브레이크 15:00–17:00)",price:"물냉면 19,000원~",
+ desc:"우래옥 계열 평양냉면 전문점. 한우 사태 육수에 간장으로 간을 맞춘 맑고 담백한 국물. 전통을 이어가는 곳.",
  menus:[{n:"물냉면",p:"19,000"},{n:"비빔냉면",p:"19,000"},{n:"편육",p:"25,000"},{n:"만두",p:"10,000"}]},
 
-{id:4,name:"광화문국밥",area:"종로·중구",district:"중구 광화문",cat:"국물요리",icon:"🍲",tags:["국물요리"],isNew:false,
- lat:37.5641,lng:126.9761,
- address:"서울 중구 세종대로21길 53",phone:"02-732-2583",
- hours:"월~토 11:00–21:00 / 일요일 휴무",
- price:"돼지국밥 13,000원~",
- desc:"박찬일 셰프가 운영하는 정제된 스타일의 돼지국밥 전문점. 흑돼지 엉덩이살과 듀록 어깨살로 낸 맑고 향기로운 국물, 밥과 국을 따로 내는 섬세한 방식이 특징. 부추 고명이 육수에 향긋함을 더해줌.",
- menus:[{n:"돼지국밥",p:"13,000"},{n:"돼지수육",p:"35,000"},{n:"흰쌀밥(추가)",p:"2,000"},{n:"배추김치",p:"기본제공"}]},
+{id:4,name:"광화문국밥",grade:"bib",area:"종로·중구",district:"중구 광화문",cat:"국물요리",icon:"🍲",tags:["국물요리"],isNew:false,
+ lat:37.5641,lng:126.9761,address:"서울 중구 세종대로21길 53",phone:"02-732-2583",
+ hours:"월~토 11:00–21:00 / 일 휴무",price:"돼지국밥 13,000원~",
+ desc:"박찬일 셰프가 운영하는 정제된 스타일의 돼지국밥. 흑돼지·듀록 어깨살로 낸 맑고 향기로운 국물, 밥과 국을 따로 내는 섬세한 방식.",
+ menus:[{n:"돼지국밥",p:"13,000"},{n:"돼지수육",p:"35,000"}]},
 
-{id:5,name:"삼청동수제비",area:"종로·중구",district:"종로구 삼청동",cat:"국물요리",icon:"🥣",tags:["국물요리","면류"],isNew:false,
- lat:37.5827,lng:126.9807,
- address:"서울 종로구 삼청로 101-1",phone:"02-735-2965",
- hours:"매일 11:00–21:00",
- price:"수제비 12,000원~",
- desc:"삼청동 골목에 자리한 소박한 수제비·칼국수 전문점. 직접 반죽해 손으로 뜯어내는 쫄깃한 수제비와 진한 멸치 육수가 매력. 관광객과 단골 모두 즐겨 찾는 오래된 명소로 가성비 최고.",
- menus:[{n:"수제비",p:"12,000"},{n:"칼국수",p:"12,000"},{n:"수제비+만두세트",p:"15,000"},{n:"녹두빈대떡",p:"10,000"}]},
+{id:5,name:"삼청동수제비",grade:"bib",area:"종로·중구",district:"종로구 삼청동",cat:"국물요리",icon:"🥣",tags:["국물요리"],isNew:false,
+ lat:37.5827,lng:126.9807,address:"서울 종로구 삼청로 101-1",phone:"02-735-2965",
+ hours:"매일 11:00–21:00",price:"수제비 12,000원~",
+ desc:"삼청동 골목의 소박한 수제비·칼국수 전문점. 직접 반죽해 손으로 뜯어내는 쫄깃한 수제비, 진한 멸치 육수.",
+ menus:[{n:"수제비",p:"12,000"},{n:"칼국수",p:"12,000"},{n:"세트",p:"15,000"}]},
 
-{id:6,name:"용금옥",area:"종로·중구",district:"종로구 청계천변",cat:"국물요리",icon:"🐟",tags:["국물요리"],isNew:false,
- lat:37.5712,lng:126.9874,
- address:"서울 종로구 청계천로 27",phone:"02-2265-5228",
- hours:"월~토 11:30–21:00 / 일요일 휴무",
- price:"추어탕 14,000원~",
- desc:"조선시대 청계천변 추탕 전통을 잇는 60년 노포. 갈아낸 미꾸라지를 된장·들깨로 진하게 끓인 묵직한 추어탕이 시그니처. 바삭한 추어튀김도 명물. 전통 있는 서울 향토음식을 체험할 수 있는 곳.",
- menus:[{n:"추어탕",p:"14,000"},{n:"추어튀김",p:"22,000"},{n:"추어전골(2인)",p:"36,000"},{n:"동동주",p:"5,000"}]},
+{id:6,name:"용금옥",grade:"bib",area:"종로·중구",district:"종로구 청계천변",cat:"국물요리",icon:"🐟",tags:["국물요리"],isNew:false,
+ lat:37.5712,lng:126.9874,address:"서울 종로구 청계천로 27",phone:"02-2265-5228",
+ hours:"월~토 11:30–21:00 / 일 휴무",price:"추어탕 14,000원~",
+ desc:"조선시대 청계천변의 추탕 전통을 잇는 60년 노포. 갈아낸 미꾸라지를 된장·들깨로 진하게 끓인 추어탕과 바삭한 추어튀김.",
+ menus:[{n:"추어탕",p:"14,000"},{n:"추어튀김",p:"22,000"},{n:"전골(2인)",p:"36,000"}]},
 
-{id:7,name:"대성집",area:"종로·중구",district:"종로구 익선동",cat:"국물요리",icon:"🦴",tags:["국물요리"],isNew:false,
- lat:37.5699,lng:126.9876,
- address:"서울 종로구 돈화문로11나길 9",phone:"02-763-7934",
- hours:"매일 09:00–21:00",
- price:"도가니탕 15,000원~",
- desc:"뽀얀 사골 국물에 말랑한 도가니와 쫄깃한 힘줄이 가득. 해장국 집으로 시작해 도가니탕 전문점이 된 익선동 명소. 뭉근하게 오래 끓인 진한 국물이 속을 든든하게 채워주는 한 그릇.",
- menus:[{n:"도가니탕",p:"15,000"},{n:"특도가니탕",p:"18,000"},{n:"도가니수육",p:"40,000"},{n:"우족탕",p:"15,000"}]},
+{id:7,name:"진옥화할머니원조닭한마리",grade:"bib",area:"종로·중구",district:"종로구 종로5가",cat:"국물요리",icon:"🍗",tags:["국물요리","육류"],isNew:false,
+ lat:37.5698,lng:127.0060,address:"서울 종로구 종로40가길 18",phone:"02-2275-9666",
+ hours:"매일 11:00–22:00",price:"닭한마리 21,000원~",
+ desc:"종로 닭한마리 골목의 원조집. 끓는 육수에 직접 닭을 익혀 먹고 면·수제비로 마무리하는 전통 방식.",
+ menus:[{n:"닭한마리(1마리)",p:"21,000"},{n:"수제비(추가)",p:"2,000"},{n:"칼국수(추가)",p:"2,000"}]},
 
-{id:8,name:"남포면옥",area:"종로·중구",district:"중구 충무로",cat:"냉면",icon:"❄️",tags:["냉면","면류"],isNew:false,
- lat:37.5598,lng:126.9849,
- address:"서울 중구 퇴계로 195",phone:"02-2279-0006",
- hours:"매일 11:00–21:30 (브레이크 15:00–17:00)",
- price:"물냉면 17,000원~",
- desc:"감자전분 면발이 쫄깃한 함흥냉면 스타일 냉면 전문점. 회냉면과 불고기냉면이 인기. 충무로·명동 인근 직장인과 관광객 모두에게 사랑받는 오래된 맛집.",
- menus:[{n:"물냉면",p:"17,000"},{n:"비빔냉면",p:"17,000"},{n:"회냉면",p:"20,000"},{n:"만두",p:"9,000"}]},
+{id:10,name:"금돼지식당",grade:"bib",area:"마포·홍대",district:"중구 신당동(약수역)",cat:"육류",icon:"🐷",tags:["육류"],isNew:false,
+ lat:37.5535,lng:127.0043,address:"서울 중구 신당동 370-69 (약수역 2번출구)",phone:"02-2253-7979",
+ hours:"월~토 11:00–21:30 (브레이크 15:00–17:00) / 일 휴무",price:"숙성삼겹살 14,000원/인~",
+ desc:"1982년 개업, 40년 이상 숙성 삼겹살을 연탄불에 구워내는 노포. 생고기와 달리 쫄깃하고 고소한 숙성육의 진한 맛. 대기 줄이 늘 길다.",
+ menus:[{n:"숙성삼겹살",p:"14,000/인"},{n:"오겹살",p:"16,000/인"},{n:"돼지찌개",p:"9,000"}]},
 
-{id:9,name:"진옥화할머니원조닭한마리",area:"종로·중구",district:"종로구 종로5가",cat:"국물요리",icon:"🍗",tags:["국물요리","육류"],isNew:false,
- lat:37.5698,lng:127.0060,
- address:"서울 종로구 종로40가길 18",phone:"02-2275-9666",
- hours:"매일 11:00–22:00",
- price:"닭한마리 21,000원~",
- desc:"종로 닭한마리 골목의 원조집. 끓는 육수에 닭을 담가 직접 익혀 먹는 독특한 방식. 칼칼한 양념장에 찍어 먹다가 면과 수제비로 마무리하는 전통 코스. 외국인 관광객에게도 인기.",
- menus:[{n:"닭한마리(1마리)",p:"21,000"},{n:"수제비(추가)",p:"2,000"},{n:"칼국수(추가)",p:"2,000"},{n:"감자(추가)",p:"2,000"}]},
+{id:11,name:"을밀대",grade:"bib",area:"마포·홍대",district:"마포구 공덕",cat:"냉면",icon:"❄️",tags:["냉면"],isNew:false,
+ lat:37.5531,lng:126.9240,address:"서울 마포구 마포대로12안길 16",phone:"02-711-4520",
+ hours:"매일 11:00–21:00 (재료 소진 시 마감)",price:"물냉면 18,000원~",
+ desc:"우래옥과 양대 산맥. 소고기와 돼지뼈를 함께 끓인 구수한 육수, 손반죽 메밀면의 자연스러운 끊김이 특징.",
+ menus:[{n:"물냉면",p:"18,000"},{n:"비빔냉면",p:"18,000"},{n:"수육",p:"28,000"}]},
 
-// ─── 마포·홍대 ───
-{id:10,name:"금돼지식당",area:"마포·홍대",district:"중구 신당동(약수역)",cat:"육류",icon:"🐷",tags:["육류"],isNew:false,
- lat:37.5535,lng:127.0043,
- address:"서울 중구 신당동 370-69 (약수역 2번출구 도보 5분)",phone:"02-2253-7979",
- hours:"월~토 11:00–21:30 (브레이크 15:00–17:00) / 일요일 휴무",
- price:"숙성삼겹살 14,000원/인~",
- desc:"1982년 개업, 40년 이상 숙성 삼겹살을 연탄불에 구워내는 노포. 생고기와 달리 쫄깃하고 고소한 숙성육의 진한 맛이 핵심. 가성비와 맛을 모두 잡아 미쉐린이 연속 주목. 대기 줄이 늘 길다.",
- menus:[{n:"숙성삼겹살",p:"14,000/인"},{n:"오겹살",p:"16,000/인"},{n:"돼지찌개",p:"9,000"},{n:"된장찌개",p:"5,000"}]},
+{id:12,name:"진진",grade:"bib",area:"마포·홍대",district:"마포구 망원동",cat:"중식",icon:"🥢",tags:["국물요리"],isNew:false,
+ lat:37.5547,lng:126.9125,address:"서울 마포구 성산로4길 22",phone:"02-336-6171",
+ hours:"매일 11:30–21:30 / 화 휴무",price:"삼선짜장 13,000원~",
+ desc:"마포 정통 중화요리 전문점. 직접 뽑은 면발과 신선한 재료. 얼큰하고 시원한 짬뽕, 진한 삼선짜장이 단골을 부른다.",
+ menus:[{n:"삼선짜장",p:"13,000"},{n:"삼선짬뽕",p:"14,000"},{n:"탕수육(소)",p:"30,000"}]},
 
-{id:11,name:"을밀대",area:"마포·홍대",district:"마포구 공덕",cat:"냉면",icon:"❄️",tags:["냉면","면류"],isNew:false,
- lat:37.5531,lng:126.9240,
- address:"서울 마포구 마포대로12안길 16",phone:"02-711-4520",
- hours:"매일 11:00–21:00 (재료 소진 시 마감)",
- price:"물냉면 18,000원~",
- desc:"우래옥과 양대 산맥을 이루는 서울 평양냉면 명가. 소고기와 돼지뼈를 함께 끓인 구수한 육수, 손반죽한 메밀면의 자연스러운 끊김이 특징. 우래옥보다 간이 약간 가볍고 부드러운 편.",
- menus:[{n:"물냉면",p:"18,000"},{n:"비빔냉면",p:"18,000"},{n:"수육",p:"28,000"},{n:"만두",p:"10,000"}]},
+{id:13,name:"만족오향족발",grade:"bib",area:"마포·홍대",district:"마포구 공덕",cat:"육류",icon:"🍖",tags:["육류"],isNew:false,
+ lat:37.5534,lng:126.9201,address:"서울 마포구 토정로 222",phone:"02-704-1690",
+ hours:"매일 16:00–다음날 01:00",price:"오향족발(중) 35,000원~",
+ desc:"중국 오향 향신료로 은은하게 향을 낸 족발 전문점. 찰지고 윤기 나는 족발에 특제 새우젓과 보쌈무.",
+ menus:[{n:"오향족발(소)",p:"25,000"},{n:"오향족발(중)",p:"35,000"},{n:"보쌈(소)",p:"26,000"}]},
 
-{id:12,name:"진진",area:"마포·홍대",district:"마포구 망원동",cat:"중식",icon:"🥢",tags:["국물요리","면류"],isNew:false,
- lat:37.5547,lng:126.9125,
- address:"서울 마포구 성산로4길 22",phone:"02-336-6171",
- hours:"매일 11:30–21:30 / 화요일 휴무",
- price:"삼선짜장 13,000원~",
- desc:"마포 재래시장 인근의 소박한 정통 중화요리 전문점. 직접 뽑은 면발과 신선한 재료로 만드는 정직한 중식. 얼큰하고 시원한 짬뽕 국물과 진한 삼선짜장이 단골을 부르는 곳.",
- menus:[{n:"삼선짜장",p:"13,000"},{n:"삼선짬뽕",p:"14,000"},{n:"탕수육(소)",p:"30,000"},{n:"볶음밥",p:"11,000"}]},
+{id:14,name:"니시무라멘 서울",grade:"bib",area:"마포·홍대",district:"마포구 홍대",cat:"면류",icon:"🍜",tags:["면류"],isNew:false,
+ lat:37.5510,lng:126.9183,address:"서울 마포구 잔다리로 17",phone:"02-3144-3750",
+ hours:"매일 11:30–21:00 / 수 휴무",price:"시오라멘 16,000원~",
+ desc:"후쿠오카 프렌치 셰프가 서울에 연 라멘집. 김오일·청양고추·백김치 등 한국 재료를 접목한 독창적 라멘. 2025 신규 선정.",
+ menus:[{n:"부추시오라멘",p:"16,000"},{n:"간장라멘",p:"16,000"},{n:"솥밥(추가)",p:"6,000"}]},
 
-{id:13,name:"만족오향족발",area:"마포·홍대",district:"마포구 공덕",cat:"육류",icon:"🍖",tags:["육류"],isNew:false,
- lat:37.5534,lng:126.9201,
- address:"서울 마포구 토정로 222",phone:"02-704-1690",
- hours:"매일 16:00–다음날 01:00",
- price:"오향족발(중) 35,000원~",
- desc:"중국 오향 향신료로 은은하게 향을 낸 특색 있는 족발 전문점. 찰지고 윤기 나는 족발에 특제 새우젓과 보쌈무를 곁들이면 궁합 최고. 맥주·소주 안주로도 인기. 늦은 밤까지 영업.",
- menus:[{n:"오향족발(소)",p:"25,000"},{n:"오향족발(중)",p:"35,000"},{n:"보쌈(소)",p:"26,000"},{n:"두부김치",p:"12,000"}]},
+{id:15,name:"미필담",grade:"bib",area:"마포·홍대",district:"마포구 홍대",cat:"면류",icon:"🥟",tags:["면류","국물요리"],isNew:false,
+ lat:37.5495,lng:126.9172,address:"서울 마포구 와우산로 36",phone:"02-338-5262",
+ hours:"화~일 11:30–20:30 / 월 휴무",price:"이북식 손만둣국 14,000원~",
+ desc:"이북식 손만두 전문점. 얇은 피에 돼지고기·두부·배추를 직접 빚는 투박하고 정직한 만두. 진하고 구수한 국물.",
+ menus:[{n:"이북식 손만둣국",p:"14,000"},{n:"왕만두(찐·8개)",p:"12,000"},{n:"만두전골(2인)",p:"32,000"}]},
 
-{id:14,name:"니시무라멘 서울",area:"마포·홍대",district:"마포구 홍대",cat:"면류",icon:"🍜",tags:["면류"],isNew:false,
- lat:37.5510,lng:126.9183,
- address:"서울 마포구 잔다리로 17",phone:"02-3144-3750",
- hours:"매일 11:30–21:00 / 수요일 휴무",
- price:"시오라멘 16,000원~",
- desc:"후쿠오카 프렌치 셰프 니시무라 타카히토가 서울에 연 라멘 전문점. 김오일·청양고추·백김치 쯔께모노 등 한국 재료를 접목한 독창적 라멘. 갓 지은 솥밥에 치즈와 라멘 국물 조합도 별미. 2025 신규 선정.",
- menus:[{n:"부추시오라멘",p:"16,000"},{n:"간장라멘",p:"16,000"},{n:"솥밥(추가)",p:"6,000"},{n:"만두",p:"7,000"}]},
+{id:19,name:"곰탕랩",grade:"bib",area:"강남·서초",district:"강남구 선릉",cat:"국물요리",icon:"🦴",tags:["국물요리"],isNew:false,
+ lat:37.5053,lng:127.0488,address:"서울 강남구 선릉로 432",phone:"02-554-5574",
+ hours:"월~토 11:30–20:30 / 일 휴무",price:"콜라겐사골곰탕 16,000원~",
+ desc:"임정식 셰프의 곰탕 전문점. 콜라겐 풍부한 사골을 장시간 끓여 뽀얗고 진한 국물 구현. 2025 신규 선정.",
+ menus:[{n:"콜라겐사골곰탕",p:"16,000"},{n:"특곰탕",p:"19,000"},{n:"수육",p:"35,000"}]},
 
-{id:15,name:"미필담",area:"마포·홍대",district:"마포구 홍대",cat:"면류",icon:"🥟",tags:["면류","국물요리"],isNew:false,
- lat:37.5495,lng:126.9172,
- address:"서울 마포구 와우산로 36",phone:"02-338-5262",
- hours:"화~일 11:30–20:30 (월 휴무 / 재료소진마감)",
- price:"이북식 손만둣국 14,000원~",
- desc:"이북식 손만두와 만둣국에 특화된 소박한 가게. 얇은 피 안에 돼지고기·두부·배추를 넣어 직접 빚는 투박하고 정직한 손만두. 진하고 구수한 국물이 겨울에 더욱 제격. 2025 신규 선정.",
- menus:[{n:"이북식 손만둣국",p:"14,000"},{n:"왕만두(찐·8개)",p:"12,000"},{n:"만두전골(2인)",p:"32,000"},{n:"편육",p:"18,000"}]},
+{id:20,name:"면서울",grade:"bib",area:"강남·서초",district:"강남구 역삼",cat:"면류",icon:"🍜",tags:["면류"],isNew:false,
+ lat:37.5156,lng:127.0282,address:"서울 강남구 강남대로 318",phone:"02-556-9903",
+ hours:"화~일 11:30–21:00 / 월 휴무",price:"생들기름면 14,000원~",
+ desc:"윤서울 김도윤 셰프의 두 번째 가게. 자가제면 요리 특화. 생들기름면의 고소함과 깔끔한 간장 소스의 조화.",
+ menus:[{n:"생들기름면",p:"14,000"},{n:"비빔면",p:"14,000"},{n:"냉면",p:"16,000"}]},
 
-{id:16,name:"서교난면방",area:"마포·홍대",district:"마포구 서교동",cat:"면류",icon:"🍜",tags:["면류","국물요리"],isNew:false,
- lat:37.5512,lng:126.9278,
- address:"서울 마포구 서교동 351-16",phone:"02-334-0440",
- hours:"매일 11:00–21:00 / 월요일 휴무",
- price:"한우난면 19,000원~",
- desc:"한우 사골 설렁탕 국물에 평양냉면식 면을 넣어 따뜻하게 먹는 독창적인 난면 전문점. 따뜻한 평양냉면이라는 독특한 개념. 깔끔하고 진한 육수가 위로가 되는 한 그릇. 2025 신규 선정.",
- menus:[{n:"한우 설렁탕 난면",p:"19,000"},{n:"비빔난면",p:"19,000"},{n:"수육",p:"30,000"},{n:"만두",p:"8,000"}]},
+{id:21,name:"3대 삼계장인",grade:"bib",area:"강남·서초",district:"서초구",cat:"국물요리",icon:"🍗",tags:["국물요리","육류"],isNew:true,
+ lat:37.4868,lng:127.0133,address:"서울 서초구 방배중앙로 207",phone:"02-595-1003",
+ hours:"매일 10:30–21:00 (재료 소진 시 마감)",price:"삼계탕 19,000원~",
+ desc:"1973년 창업 3대째 이어온 삼계탕 명가. 40가지 이상 재료를 넣어 끓인 진한 국물에 녹두·잣·쑥 페이스트. 2026 신규 선정.",
+ menus:[{n:"기본삼계탕",p:"19,000"},{n:"녹두삼계탕",p:"22,000"},{n:"쑥삼계탕",p:"22,000"}]},
 
-{id:17,name:"알트에이",area:"마포·홍대",district:"마포구 홍대",cat:"비건",icon:"🌱",tags:["비건"],isNew:false,
- lat:37.5539,lng:126.9169,
- address:"서울 마포구 어울마당로 10",phone:"02-338-7878",
- hours:"화~일 11:30–21:00 / 월요일 휴무",
- price:"비건탕수육 22,000원~",
- desc:"100% 식물성 재료와 대체육으로 만드는 비건 중화요리 전문점. 말하지 않으면 알 수 없을 정도로 쫄깃한 비건 탕수육과 짬뽕이 인기. 비건이 아닌 손님도 만족시키는 수준. 2025 신규 선정.",
- menus:[{n:"비건탕수육",p:"22,000"},{n:"비건유린육",p:"20,000"},{n:"비건짬뽕",p:"15,000"},{n:"비건짜장",p:"13,000"}]},
+{id:22,name:"능동미나리",grade:"bib",area:"용산·이태원",district:"용산구 이태원",cat:"국물요리",icon:"🌿",tags:["국물요리"],isNew:false,
+ lat:37.5318,lng:126.9984,address:"서울 용산구 이태원로 21길 10",phone:"02-794-8882",
+ hours:"화~일 11:30–21:00 / 월 휴무",price:"미나리곰탕 16,000원~",
+ desc:"신선한 능동 미나리를 듬뿍 올린 독특한 곰탕. 미나리 향이 느끼함을 잡아주고 국물의 깊이를 더한다.",
+ menus:[{n:"미나리곰탕",p:"16,000"},{n:"특미나리곰탕",p:"19,000"},{n:"수육",p:"30,000"}]},
 
-// ─── 강남·서초 ───
-{id:18,name:"양미옥",area:"강남·서초",district:"강남구 압구정",cat:"국물요리",icon:"🦆",tags:["국물요리","육류"],isNew:false,
- lat:37.5094,lng:127.0380,
- address:"서울 강남구 언주로168길 16",phone:"02-548-9914",
- hours:"매일 11:00–21:30 / 화요일 휴무",
- price:"오리백숙 40,000원/인~",
- desc:"강남 한복판 한옥 스타일의 오리 요리 전문점. 능이버섯과 인삼을 넣어 정성껏 끓인 오리백숙과 능이오리탕이 대표 메뉴. 진하고 향긋한 국물은 한 번 먹으면 잊히지 않는 맛. 미쉐린 연속 선정.",
- menus:[{n:"오리백숙",p:"40,000/인"},{n:"능이버섯백숙",p:"50,000/인"},{n:"능이오리탕",p:"40,000/인"},{n:"죽(마무리)",p:"기본제공"}]},
+{id:23,name:"옥돌현옥",grade:"bib",area:"기타지역",district:"마포구 합정동",cat:"냉면",icon:"❄️",tags:["냉면"],isNew:false,
+ lat:37.5476,lng:126.9158,address:"서울 마포구 포은로 109-6",phone:"02-323-4491",
+ hours:"매일 11:30–21:00 / 화 휴무",price:"순메밀냉면 18,000원~",
+ desc:"100% 메밀 순면에 진하고 고소한 사골 육수를 부어내는 냉면 전문점. 깊은 메밀 향과 자연스러운 면발 식감.",
+ menus:[{n:"순메밀냉면",p:"18,000"},{n:"메밀비빔면",p:"18,000"},{n:"수육",p:"28,000"}]},
 
-{id:19,name:"곰탕랩",area:"강남·서초",district:"강남구 선릉",cat:"국물요리",icon:"🦴",tags:["국물요리"],isNew:false,
- lat:37.5053,lng:127.0488,
- address:"서울 강남구 선릉로 432",phone:"02-554-5574",
- hours:"월~토 11:30–20:30 / 일요일 휴무",
- price:"콜라겐사골곰탕 16,000원~",
- desc:"임정식 셰프가 평화옥 시절부터 연구해온 곰탕 전문점. 콜라겐 풍부한 사골을 장시간 끓여 뽀얗고 진한 국물 구현. 건강과 미식을 동시에 만족시키는 2025 신규 빕 구르망 선정 식당.",
- menus:[{n:"콜라겐사골곰탕",p:"16,000"},{n:"특곰탕",p:"19,000"},{n:"수육",p:"35,000"},{n:"깍두기",p:"기본제공"}]},
-
-{id:20,name:"면서울",area:"강남·서초",district:"강남구 역삼",cat:"면류",icon:"🍜",tags:["면류"],isNew:false,
- lat:37.5156,lng:127.0282,
- address:"서울 강남구 강남대로 318",phone:"02-556-9903",
- hours:"화~일 11:30–21:00 / 월요일 휴무",
- price:"생들기름면 14,000원~",
- desc:"윤서울 김도윤 셰프의 두 번째 가게. 자가제면 요리에 특화. 직접 뽑은 면의 탱글한 식감이 인상적. 생들기름면의 고소함과 깔끔한 간장 소스의 조화가 단순하지만 깊은 맛. 2025 신규 선정.",
- menus:[{n:"생들기름면",p:"14,000"},{n:"비빔면",p:"14,000"},{n:"들기름 물냉면",p:"16,000"},{n:"수육",p:"25,000"}]},
-
-{id:21,name:"3대 삼계장인",area:"강남·서초",district:"서초구 서초동",cat:"국물요리",icon:"🍗",tags:["국물요리","육류"],isNew:true,
- lat:37.4868,lng:127.0133,
- address:"서울 서초구 방배중앙로 207",phone:"02-595-1003",
- hours:"매일 10:30–21:00 (재료 소진 시 조기 마감)",
- price:"삼계탕 19,000원~",
- desc:"1973년 창업, 3대째 이어온 삼계탕 명가. 40가지 이상의 재료를 넣어 끓인 진한 국물에 녹두·잣·쑥 페이스트를 더한 세 가지 삼계탕이 대표 메뉴. 영계만 사용해 육질이 부드럽고 향긋. 2026 신규 선정.",
- menus:[{n:"기본삼계탕",p:"19,000"},{n:"녹두삼계탕",p:"22,000"},{n:"쑥삼계탕",p:"22,000"},{n:"잣삼계탕",p:"22,000"}]},
-
-// ─── 용산·이태원 ───
-{id:22,name:"능동미나리",area:"용산·이태원",district:"용산구 이태원",cat:"국물요리",icon:"🌿",tags:["국물요리"],isNew:false,
- lat:37.5318,lng:126.9984,
- address:"서울 용산구 이태원로 21길 10",phone:"02-794-8882",
- hours:"화~일 11:30–21:00 / 월요일 휴무",
- price:"미나리곰탕 16,000원~",
- desc:"신선한 능동 미나리를 듬뿍 올린 독특한 스타일의 곰탕 전문점. 미나리 향이 느끼함을 잡아주고 국물의 깊이를 더해준다. 흔히 볼 수 없는 조합으로 오픈 직후 미쉐린에 빠르게 이름을 올린 신진 맛집. 2025 신규.",
- menus:[{n:"미나리곰탕",p:"16,000"},{n:"특미나리곰탕",p:"19,000"},{n:"수육",p:"30,000"},{n:"미나리전",p:"12,000"}]},
-
-// ─── 기타지역 ───
-{id:23,name:"옥돌현옥",area:"기타지역",district:"마포구 합정동",cat:"냉면",icon:"❄️",tags:["냉면","면류"],isNew:false,
- lat:37.5476,lng:126.9158,
- address:"서울 마포구 포은로 109-6",phone:"02-323-4491",
- hours:"매일 11:30–21:00 / 화요일 휴무",
- price:"순메밀냉면 18,000원~",
- desc:"100% 메밀만 사용한 순면에 진하고 고소한 사골 육수를 부어내는 냉면 전문점. 평양냉면 마니아들 사이에서 빠르게 입소문이 난 곳. 깊은 메밀 향과 자연스러운 면발 식감이 독특. 2025 신규 선정.",
- menus:[{n:"순메밀냉면",p:"18,000"},{n:"메밀비빔면",p:"18,000"},{n:"수육",p:"28,000"},{n:"만두",p:"9,000"}]},
-
-{id:24,name:"고사리 익스프레스",area:"기타지역",district:"중구 신당동",cat:"비건",icon:"🌱",tags:["비건"],isNew:true,
- lat:37.5618,lng:127.0106,
- address:"서울 중구 신당중앙시장 내",phone:"070-8880-2722",
- hours:"화~일 11:00–19:00 / 월요일 휴무",
- price:"고사리비빔밥 11,000원~",
- desc:"신당중앙시장 붉은 차양 아래 자리한 비건 전문점. '일상 속의 채식'을 모토로 고사리를 중심으로 채소를 맛있고 흥미롭게 풀어낸다. 가볍고 건강한 한 끼로 손색없는 곳. 2026 신규 선정.",
- menus:[{n:"고사리비빔밥",p:"11,000"},{n:"들깨미역국밥",p:"10,000"},{n:"나물정식",p:"14,000"},{n:"비건칼국수",p:"11,000"}]},
-
-{id:25,name:"유한",area:"기타지역",district:"성동구 성수동",cat:"한식",icon:"🍱",tags:["국물요리"],isNew:false,
- lat:37.5474,lng:127.0399,
- address:"서울 성동구 성수이로 130",phone:"02-462-3344",
- hours:"화~일 11:30–21:00 / 월요일 휴무",
- price:"유한한정식 35,000원~",
- desc:"성수동 도심 속 전통 한식 전문점. 엄선한 제철 식재료로 매달 다른 메뉴를 구성하는 정성 있는 한 상차림. 정갈하고 섬세한 한식의 미를 느낄 수 있는 곳. 2025 신규 선정.",
- menus:[{n:"유한한정식",p:"35,000"},{n:"계절 국밥",p:"13,000"},{n:"전통 비빔밥",p:"15,000"},{n:"두부전골",p:"22,000"}]}
+{id:24,name:"고사리 익스프레스",grade:"bib",area:"기타지역",district:"중구 신당동",cat:"비건",icon:"🌱",tags:["비건"],isNew:true,
+ lat:37.5618,lng:127.0106,address:"서울 중구 신당중앙시장 내",phone:"070-8880-2722",
+ hours:"화~일 11:00–19:00 / 월 휴무",price:"고사리비빔밥 11,000원~",
+ desc:"신당중앙시장 비건 전문점. 2026 신규 선정 + 미쉐린 그린 스타도 동시 획득. '일상 속의 채식' 모토.",
+ menus:[{n:"고사리비빔밥",p:"11,000"},{n:"들깨미역국밥",p:"10,000"},{n:"나물정식",p:"14,000"}]}
 ];
 
-// ── MAP INIT ──
+// ─── helpers ───
+const GRADE_COLORS={
+  "3star":"#92400E","2star":"#B45309","1star":"#D97706",
+  "bib":"#B91C1C","bib-new":"#166534"
+};
+const GRADE_LABEL={"3star":"⭐⭐⭐ 3스타","2star":"⭐⭐ 2스타","1star":"⭐ 1스타","bib":"🍜 빕구르망"};
+const GRADE_ORDER={"3star":0,"2star":1,"1star":2,"bib":3};
+
+// ─── MAP ───
 const map=L.map('map',{zoomControl:true}).setView([37.548,126.98],12);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
   attribution:'© OpenStreetMap contributors',maxZoom:19
@@ -382,26 +493,27 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
 
 const markers={};
 R.forEach(r=>{
+  const color=r.grade==='bib'&&r.isNew?GRADE_COLORS['bib-new']:GRADE_COLORS[r.grade];
   const ic=L.divIcon({
     className:'',
-    html:`<div style="width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);
-      background:${r.isNew?'#166534':'#B91C1C'};border:2.5px solid #fff;
-      box-shadow:0 3px 10px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
-      <span style="transform:rotate(45deg);font-size:15px;line-height:1">${r.icon}</span></div>`,
-    iconSize:[36,36],iconAnchor:[18,36],popupAnchor:[0,-38]
+    html:`<div style="width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+      background:${color};border:2.5px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,0.3);
+      display:flex;align-items:center;justify-content:center;">
+      <span style="transform:rotate(45deg);font-size:13px;line-height:1">${r.icon}</span></div>`,
+    iconSize:[34,34],iconAnchor:[17,34],popupAnchor:[0,-36]
   });
   const m=L.marker([r.lat,r.lng],{icon:ic});
-  m.bindPopup(`<div class="pw">
+  m.bindPopup(`<div>
     <div class="pn">${r.name}</div>
     <div class="ps">📍 ${r.district}<br>📞 ${r.phone}<br>💰 ${r.price}</div>
-    <span class="pt ${r.isNew?'ptgreen':'ptred'}">${r.cat}${r.isNew?' · 2026 신규':''}</span>
-  </div>`,{maxWidth:230});
+    <span class="pt" style="background:${color}">${GRADE_LABEL[r.grade]}${r.isNew?' · 2026 신규':''}</span>
+  </div>`,{maxWidth:220});
   m.on('click',()=>scrollToCard(r.id));
   markers[r.id]=m;
   m.addTo(map);
 });
 
-// ── FILTER ──
+// ─── FILTER ───
 let cur='all';
 document.getElementById('chips').addEventListener('click',e=>{
   const b=e.target.closest('.chip');
@@ -414,15 +526,19 @@ document.getElementById('chips').addEventListener('click',e=>{
 
 function getF(){
   if(cur==='all')return R;
+  if(cur==='3star')return R.filter(r=>r.grade==='3star');
+  if(cur==='2star')return R.filter(r=>r.grade==='2star');
+  if(cur==='1star')return R.filter(r=>r.grade==='1star');
+  if(cur==='bib')return R.filter(r=>r.grade==='bib');
   if(cur==='new')return R.filter(r=>r.isNew);
-  const tmap={냉면:'냉면',국물요리:'국물요리',육류:'육류',면류:'면류',비건:'비건'};
-  if(tmap[cur])return R.filter(r=>r.tags.includes(cur));
+  const foodTags=['냉면','국물요리','육류','한식','일식'];
+  if(foodTags.includes(cur))return R.filter(r=>r.tags.includes(cur));
   return R.filter(r=>r.area===cur);
 }
 
-// ── RENDER ──
+// ─── RENDER ───
 function renderAll(){
-  const list=getF();
+  const list=[...getF()].sort((a,b)=>GRADE_ORDER[a.grade]-GRADE_ORDER[b.grade]);
   document.getElementById('cnt').textContent=list.length+'곳';
   const el=document.getElementById('cards');
   el.innerHTML='';
@@ -430,26 +546,47 @@ function renderAll(){
     el.innerHTML=`<div class="empty"><div class="eico">🔍</div><div>해당 조건에 맞는 식당이 없습니다</div></div>`;
     updateM(list);return;
   }
+
+  let lastGrade=null;
   list.forEach((r,i)=>{
+    // section divider
+    if(r.grade!==lastGrade){
+      const div=document.createElement('div');
+      div.className='section-divider';
+      div.textContent=GRADE_LABEL[r.grade];
+      el.appendChild(div);
+      lastGrade=r.grade;
+    }
+
+    const isStar=r.grade!=='bib';
+    const color=r.grade==='bib'&&r.isNew?GRADE_COLORS['bib-new']:GRADE_COLORS[r.grade];
+    const stripeClass=r.grade==='3star'?'cs-3star':r.grade==='2star'?'cs-2star':r.grade==='1star'?'cs-1star':r.isNew?'cs-bib-new':'cs-bib';
+    const tagClass=r.grade==='3star'?'t3':r.grade==='2star'?'t2':r.grade==='1star'?'t1':'tbib';
+    const priceClass=isStar?'star-price':'bib-price';
+    const mipClass=isStar?'star-mip':'bib-mip';
+    const hlClass=isStar?'hl-star':'hl-bib';
+    const descBdr=isStar?'bdr-star':'bdr-bib';
+
     const d=document.createElement('div');
     d.className='card';d.id='card-'+r.id;
-    d.style.animationDelay=i*20+'ms';
+    d.style.animationDelay=i*15+'ms';
     d.innerHTML=`
       <div class="ctop" onclick="tog(${r.id})">
-        <div class="cstripe ${r.isNew?'green':'red'}"></div>
+        <div class="cstripe ${stripeClass}"></div>
         <div class="cbody">
-          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+          <div class="crow1">
             <div class="cname">${r.name}</div>
-            <div style="display:flex;gap:4px;flex-shrink:0;margin-top:2px">
-              ${r.isNew?`<span class="ctag tagg">NEW 2026</span>`:''}
-              <span class="ctag tagr">${r.cat}</span>
+            <div class="cbadges">
+              ${r.isNew?'<span class="ctag tnew">NEW 2026</span>':''}
+              <span class="ctag ${tagClass}">${GRADE_LABEL[r.grade]}</span>
             </div>
           </div>
           <div class="crow2">
             <span class="carea">📍 ${r.district}</span>
+            <span class="ccat">${r.cat}</span>
           </div>
           <div class="crow3">
-            <div class="cprice">💰 ${r.price}</div>
+            <div class="cprice ${priceClass}">💰 ${r.price}</div>
             <div class="cmenu">${r.menus.map(m=>m.n).slice(0,3).join(' · ')}</div>
           </div>
         </div>
@@ -457,18 +594,18 @@ function renderAll(){
       </div>
       <div class="cdet" id="det-${r.id}">
         <div class="cdsec">
-          <div class="cdesc">${r.desc}</div>
-          <div class="cdrow"><div class="cdic">📍</div><div class="cdtx"><div class="cdlb">주소</div><div class="cdvl">${r.address}</div></div></div>
-          <div class="cdrow"><div class="cdic">📞</div><div class="cdtx"><div class="cdlb">전화번호</div><div class="cdvl"><a href="tel:${r.phone}">${r.phone}</a></div></div></div>
-          <div class="cdrow"><div class="cdic">🕐</div><div class="cdtx"><div class="cdlb">영업시간</div><div class="cdvl">${r.hours}</div></div></div>
-          <div class="cdrow"><div class="cdic">🍽</div><div class="cdtx">
+          <div class="cdesc ${descBdr}">${r.desc}</div>
+          <div class="cdrow"><div class="cdic">📍</div><div><div class="cdlb">주소</div><div class="cdvl">${r.address}</div></div></div>
+          <div class="cdrow"><div class="cdic">📞</div><div><div class="cdlb">전화번호</div><div class="cdvl"><a href="tel:${r.phone}">${r.phone}</a></div></div></div>
+          <div class="cdrow"><div class="cdic">🕐</div><div><div class="cdlb">영업시간</div><div class="cdvl">${r.hours}</div></div></div>
+          <div class="cdrow"><div class="cdic">🍽</div><div>
             <div class="cdlb">메뉴 &amp; 가격</div>
-            <div class="mgrid">${r.menus.map(m=>`<div class="mi"><div class="min">${m.n}</div><div class="mip">₩${m.p}</div></div>`).join('')}</div>
+            <div class="mgrid">${r.menus.map(m=>`<div class="mi"><div class="min">${m.n}</div><div class="mip ${mipClass}">₩${m.p}</div></div>`).join('')}</div>
           </div></div>
         </div>
         <div class="actrow">
           <a class="abtn abmap" href="#" onclick="focM(${r.id},event)">🗺 지도</a>
-          <a class="abtn abcall" href="tel:${r.phone}">📞 전화</a>
+          <a class="abtn abcall" href="tel:${r.phone.replace(/-/g,'')}">📞 전화</a>
           <a class="abtn abnav" href="https://map.naver.com/v5/search/${encodeURIComponent(r.name)}" target="_blank">🔍 네이버</a>
         </div>
       </div>`;
@@ -484,10 +621,11 @@ function tog(id){
   const was=det.classList.contains('open');
   document.querySelectorAll('.cdet').forEach(x=>x.classList.remove('open'));
   document.querySelectorAll('.cchev').forEach(x=>x.classList.remove('open'));
-  document.querySelectorAll('.card').forEach(x=>x.classList.remove('hl'));
+  document.querySelectorAll('.card').forEach(x=>{x.classList.remove('hl-bib');x.classList.remove('hl-star');});
   if(!was){
-    det.classList.add('open');chev.classList.add('open');card.classList.add('hl');
+    det.classList.add('open');chev.classList.add('open');
     const r=R.find(x=>x.id===id);
+    card.classList.add(r&&r.grade!=='bib'?'hl-star':'hl-bib');
     if(r&&markers[id]){map.setView([r.lat,r.lng],15,{animate:true});markers[id].openPopup();}
   }
 }
@@ -513,7 +651,7 @@ function updateM(list){
   });
   if(list.length){
     const fg=L.featureGroup(list.map(r=>markers[r.id]).filter(Boolean));
-    try{map.fitBounds(fg.getBounds().pad(0.15),{maxZoom:14});}catch(_){}
+    try{map.fitBounds(fg.getBounds().pad(0.15),{maxZoom:13});}catch(_){}
   }
 }
 
