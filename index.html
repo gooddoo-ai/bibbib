@@ -46,6 +46,7 @@ body{font-family:'Noto Sans KR',system-ui,sans-serif;background:#FFFBF5;color:#1
 .chip.on.type-bib{background:#B91C1C}
 .chip.on.type-area{background:#1D4ED8}
 .chip.on.type-food{background:#065F46}
+.chip.on.type-tv{background:#7C3AED}
 
 /* MAP */
 #map{height:300px;width:100%;border-bottom:3px solid #B91C1C}
@@ -65,6 +66,7 @@ body{font-family:'Noto Sans KR',system-ui,sans-serif;background:#FFFBF5;color:#1
 .card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.07);border:1.5px solid #F3F4F6;animation:upIn .22s ease both}
 .card.hl-bib{border:2px solid #B91C1C;box-shadow:0 4px 20px rgba(185,28,28,0.15)}
 .card.hl-star{border:2px solid #D97706;box-shadow:0 4px 20px rgba(217,119,6,0.2)}
+.card.hl-tv{border:2px solid #7C3AED;box-shadow:0 4px 20px rgba(124,58,237,0.2)}
 @keyframes upIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* stripe colors */
@@ -73,6 +75,7 @@ body{font-family:'Noto Sans KR',system-ui,sans-serif;background:#FFFBF5;color:#1
 .cs-1star{background:#D97706}
 .cs-bib{background:#B91C1C}
 .cs-bib-new{background:#166534}
+.cs-tv{background:linear-gradient(180deg,#7C3AED,#A855F7)}
 
 .ctop{display:flex;align-items:stretch;cursor:pointer}
 .cstripe{width:5px;flex-shrink:0}
@@ -81,7 +84,7 @@ body{font-family:'Noto Sans KR',system-ui,sans-serif;background:#FFFBF5;color:#1
 .cname{font-family:‘Noto Serif KR’,serif;font-size:16px;font-weight:700;color:#111827;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cbadges{display:flex;align-items:center;gap:4px;flex-shrink:0;margin-top:2px;flex-wrap:wrap;justify-content:flex-end}
 .ctag{font-size:10px;font-weight:700;color:#fff;padding:2px 7px;border-radius:5px;white-space:nowrap}
-.t3{background:linear-gradient(90deg,#92400E,#D97706)}.t2{background:#B45309}.t1{background:#D97706}.tbib{background:#B91C1C}.tnew{background:#166534}
+.t3{background:linear-gradient(90deg,#92400E,#D97706)}.t2{background:#B45309}.t1{background:#D97706}.tbib{background:#B91C1C}.tnew{background:#166534}.ttv{background:linear-gradient(90deg,#7C3AED,#A855F7)}
 .cstars{font-size:13px;letter-spacing:-1px}
 .crow2{margin-top:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .carea{font-size:12px;color:#9CA3AF}
@@ -151,7 +154,7 @@ footer a{color:rgba(252,211,77,0.65);text-decoration:none}
   <div class="stat"><div class="sn gold">10</div><div class="sl">⭐⭐ 2스타</div></div>
   <div class="stat"><div class="sn gold">31</div><div class="sl">⭐ 1스타</div></div>
   <div class="stat"><div class="sn red">51</div><div class="sl">🍜 빕구르망</div></div>
-  <div class="stat"><div class="sn white">233</div><div class="sl">총 선정</div></div>
+  <div class="stat"><div class="sn" style="color:#C084FC">📺</div><div class="sl">흑백요리사</div></div>
 </div>
 
 <div class="filters">
@@ -172,6 +175,9 @@ footer a{color:rgba(252,211,77,0.65);text-decoration:none}
     <button class="chip type-food"    data-f="육류">🥩 육류</button>
     <button class="chip type-food"    data-f="한식">🍱 한식</button>
     <button class="chip type-food"    data-f="일식">🍱 일식·스시</button>
+    <button class="chip type-tv"     data-f="tv">📺 흑백요리사</button>
+    <button class="chip type-tv"     data-f="tv1">🎬 시즌1</button>
+    <button class="chip type-tv"     data-f="tv2">🎬 시즌2</button>
   </div>
 </div>
 
@@ -361,7 +367,179 @@ const R=[
  desc:"2026 미쉐린 소믈리에 어워드 수상 (이정인 소믈리에). 한국 전통 재료를 현대적으로 재해석한 코스와 함께 열정적이고 세심한 와인 서비스가 돋보이는 파인다이닝.",
  menus:[{n:"런치 코스",p:"180,000~"},{n:"디너 코스",p:"250,000~"},{n:"와인 페어링(어워드)",p:"별도"}]},
 
-/* ════════════════════ 빕 구르망 ════════════════════ */
+/* ════════════════════ 흑백요리사 ════════════════════ */
+/* ── 시즌1 백수저 ── */
+{id:401,name:"달리아 다이닝",grade:"tv",area:"강남·서초",district:"강남구 청담동",cat:"퓨전 파인다이닝",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 백수저",tvNick:"최현석",
+ lat:37.5253,lng:127.0416,address:"서울 강남구 도산대로45길 14",phone:"02-511-0011",
+ hours:"런치 12:00–14:00 / 디너 18:00–21:30 / 월 휴무",price:"런치 160,000 · 디너 260,000원~",
+ desc:"시즌1 백수저 최현석 셰프의 청담 파인다이닝. 유럽 클래식 기법과 아시아 식재료를 결합한 창의적인 코스. 방송 후 예약 전쟁. 개성 넘치는 플레이팅 시그니처.",
+ menus:[{n:"런치 코스",p:"160,000"},{n:"디너 코스",p:"260,000"},{n:"와인 페어링",p:"별도"}]},
+
+{id:411,name:"쵸이닷",grade:"tv",area:"강남·서초",district:"강남구 청담동",cat:"컨템퍼러리",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 백수저",tvNick:"최현석 (2호점)",
+ lat:37.5248,lng:127.0434,address:"서울 강남구 도산대로 457",phone:"02-511-2222",
+ hours:"런치 12:00–14:00 / 디너 18:00–21:30 / 월 휴무",price:"코스 100,000원~",
+ desc:"최현석 셰프의 두 번째 공간. 달리아 다이닝보다 접근성 좋은 캐주얼 파인다이닝. 코스 요리와 단품 메뉴를 함께 운영. 창의적인 퓨전 요리를 더 편하게 즐길 수 있는 곳.",
+ menus:[{n:"시즌 코스",p:"100,000~"},{n:"단품 요리",p:"30,000~"},{n:"와인",p:"별도"}]},
+
+{id:402,name:"윤서울",grade:"tv",area:"강남·서초",district:"강남구 청담동",cat:"한식 파인다이닝",icon:"📺",tags:["tv","tv1","tv2","한식"],isNew:false,tvSeason:"시즌1 백수저 / 시즌2 히든백수저",tvNick:"김도윤",
+ lat:37.5249,lng:127.0403,address:"서울 강남구 도산대로67길 35",phone:"02-549-0051",
+ hours:"런치 12:00–14:00 / 디너 18:30–21:00 / 일·월 휴무 (예약 필수)",price:"런치 170,000 · 디너 260,000원~",
+ desc:"시즌1 백수저·시즌2 히든백수저 김도윤 셰프의 미쉐린 1스타 한식 파인다이닝. 제철 식재료와 자가제면의 조화. 빕구르망 '면서울'도 운영. 한식을 현대적으로 재해석한 코스.",
+ menus:[{n:"런치 코스",p:"170,000"},{n:"디너 코스",p:"260,000"},{n:"전통주 페어링",p:"별도"}]},
+
+{id:412,name:"네기라이브",grade:"tv",area:"기타지역",district:"성동구 성수동",cat:"일식 이자카야",icon:"📺",tags:["tv","tv1","일식"],isNew:false,tvSeason:"시즌1 백수저",tvNick:"장호준",
+ lat:37.5447,lng:127.0451,address:"서울 성동구 성수이로 97",phone:"02-466-5005",
+ hours:"매일 17:00–24:00 / 일 휴무",price:"단품 15,000원~",
+ desc:"시즌1 백수저 장호준 셰프의 이자카야·일식당. 성수동 감성에 맞춘 트렌디한 공간. 정갈한 사시미와 계절 안주, 저녁엔 다양한 일식 이자카야 메뉴를 즐길 수 있다.",
+ menus:[{n:"사시미 모둠",p:"35,000"},{n:"계절 안주",p:"15,000~"},{n:"하이볼",p:"12,000"}]},
+
+{id:413,name:"티엔미미 강남점",grade:"tv",area:"강남·서초",district:"서초구 반포동",cat:"중식·딤섬",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 백수저",tvNick:"정지선",
+ lat:37.5010,lng:127.0063,address:"서울 서초구 사임당로 143 104-1~3",phone:"02-533-7770",
+ hours:"매일 11:30–21:30",price:"딤섬 8,000원~",
+ desc:"시즌1 백수저 정지선 셰프의 홍콩식 딤섬·중식 레스토랑. 정통 광둥식 딤섬부터 다양한 중화 요리까지. 합리적인 가격에 제대로 된 딤섬을 즐길 수 있어 강남 단골 맛집으로 자리 잡음.",
+ menus:[{n:"하가우(새우만두)",p:"10,000"},{n:"슈마이",p:"9,000"},{n:"바베큐 포크번",p:"9,000"},{n:"볶음밥",p:"14,000"}]},
+
+{id:414,name:"리북방",grade:"tv",area:"마포·홍대",district:"마포구 공덕",cat:"이북식 한식",icon:"📺",tags:["tv","tv1","한식"],isNew:false,tvSeason:"시즌1 백수저",tvNick:"최지형",
+ lat:37.5462,lng:126.9494,address:"서울 마포구 마포대로1길 16",phone:"02-718-5455",
+ hours:"매일 11:30–21:30 / 일 휴무",price:"냉면 16,000원~",
+ desc:"시즌1 백수저 최지형 셰프의 이북식 요리 전문점. 전통 이북 음식을 현대적으로 재해석. 냉면과 갈비, 만두 등 이북 음식의 정수를 경험할 수 있는 곳.",
+ menus:[{n:"이북식 냉면",p:"16,000"},{n:"갈비찜",p:"35,000"},{n:"만두",p:"12,000"}]},
+
+{id:415,name:"파브리키친",grade:"tv",area:"용산·이태원",district:"용산구 한강로",cat:"이탈리안",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 백수저",tvNick:"파브리치오 페라리",
+ lat:37.5380,lng:126.9684,address:"서울 용산구 한강대로15길 23-6",phone:"02-796-1111",
+ hours:"런치 12:00–14:30 / 디너 18:00–21:30 / 월 휴무",price:"런치 80,000 · 디너 150,000원~",
+ desc:"시즌1 백수저 파브리치오 페라리 셰프의 정통 이탈리안 레스토랑. 이탈리아 각 지방의 요리를 한국에서 정통 방식으로 재현. 직접 만드는 생면 파스타와 화덕 피자가 시그니처.",
+ menus:[{n:"런치 코스",p:"80,000"},{n:"디너 코스",p:"150,000"},{n:"생면 파스타",p:"35,000"}]},
+
+{id:416,name:"에빗(Evett)",grade:"tv",area:"강남·서초",district:"강남구 도산공원",cat:"이노베이티브",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 백수저",tvNick:"조셉 리저우드",
+ lat:37.5252,lng:127.0368,address:"서울 강남구 도산대로45길 10-5",phone:"02-548-3087",
+ hours:"런치 12:00–13:30 / 디너 18:00–20:30 / 월·일 휴무 (예약 필수)",price:"런치 150,000 · 디너 220,000원~",
+ desc:"시즌1 백수저 호주 출신 조셉 리저우드 셰프의 미쉐린 2스타 레스토랑. 한국 식재료를 독창적으로 해석한 이노베이티브 파인다이닝. 개미 요리·식혜 소르베 등 실험적 메뉴. 오픈 키친.",
+ menus:[{n:"런치 코스",p:"150,000"},{n:"디너 코스",p:"220,000"},{n:"와인 페어링",p:"별도"}]},
+
+/* ── 시즌1 흑수저 ── */
+{id:405,name:"비아톨레도 파스타바",grade:"tv",area:"용산·이태원",district:"용산구 원효로",cat:"이탈리안",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 흑수저 준우승",tvNick:"나폴리 맛피아 (권성준)",
+ lat:37.5370,lng:126.9623,address:"서울 용산구 원효로83길 7-2",phone:"02-701-3312",
+ hours:"매일 12:00–22:00 (브레이크 15:00–17:00) / 화 휴무",price:"파스타 19,000원~",
+ desc:"시즌1 흑수저 준우승 '나폴리 맛피아' 권성준 셰프의 정통 나폴리 이탈리안. 직접 만드는 생면 파스타와 참나무 화덕 피자. 방송 후 전국적 명성 획득. 웨이팅 필수.",
+ menus:[{n:"봉골레 파스타",p:"19,000"},{n:"카르보나라",p:"19,000"},{n:"마르게리타 피자",p:"22,000"},{n:"티라미수",p:"9,000"}]},
+
+{id:406,name:"포노 부오노",grade:"tv",area:"강남·서초",district:"강남구 신사동",cat:"이탈리안",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 흑수저",tvNick:"히든 천재",
+ lat:37.5201,lng:127.0233,address:"서울 강남구 도산대로45길 8-7",phone:"02-545-8855",
+ hours:"런치 12:00–14:30 / 디너 18:00–22:00 / 월 휴무",price:"파스타 28,000원~",
+ desc:"시즌1 흑수저 '히든 천재'의 정통 이탈리안. 이탈리아에서 수련한 셰프의 직접 만든 생면 파스타와 육류 요리가 시그니처. 방송 후 강남 핫플. 달리아다이닝 수셰프 출신.",
+ menus:[{n:"라구 파파르델레",p:"29,000"},{n:"트러플 리조또",p:"35,000"},{n:"티본 스테이크",p:"75,000"},{n:"카놀리",p:"10,000"}]},
+
+{id:407,name:"에스콘디도",grade:"tv",area:"용산·이태원",district:"용산구 한남동",cat:"멕시칸 퓨전",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 흑수저",tvNick:"코리안 타코킹 (강승원)",
+ lat:37.5349,lng:127.0017,address:"서울 용산구 한남대로20길 61-7",phone:"02-790-7776",
+ hours:"화~일 12:00–22:00 / 월 휴무",price:"타코 8,000원~",
+ desc:"시즌1 흑수저 '코리안 타코킹' 강승원 셰프의 미쉐린 1스타 멕시칸 퓨전 레스토랑. 한국 식재료를 멕시칸 스타일로 재해석. 개성 넘치는 타코와 나초. 한남동 핫플레이스.",
+ menus:[{n:"시그니처 타코(3개)",p:"24,000"},{n:"나초",p:"18,000"},{n:"과카몰레",p:"12,000"},{n:"마가리타",p:"14,000"}]},
+
+{id:408,name:"야키토리묵",grade:"tv",area:"마포·홍대",district:"마포구 연남동",cat:"일식·야키토리",icon:"📺",tags:["tv","tv1","일식"],isNew:false,tvSeason:"시즌1 흑수저",tvNick:"야키토리왕",
+ lat:37.5586,lng:126.9221,address:"서울 마포구 성미산로 165-1",phone:"02-332-1030",
+ hours:"화~일 17:00–23:00 / 월 휴무",price:"야키토리 꼬치 3,000원~",
+ desc:"시즌1 흑수저 '야키토리왕'의 정통 야키토리 전문점. 한약재 먹여 키운 국내산 토종닭의 다양한 부위를 숯불에 구워낸다. 연남동 숨은 명소로 방송 후 예약 필수.",
+ menus:[{n:"모모(허벅지)",p:"4,000"},{n:"네기마(파닭)",p:"4,000"},{n:"도리카와(닭껍질)",p:"3,500"},{n:"세트(10개)",p:"35,000"}]},
+
+{id:409,name:"트리드",grade:"tv",area:"강남·서초",district:"강남구 선릉",cat:"컨템퍼러리",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 흑수저",tvNick:"트리플스타 (강승원)",
+ lat:37.5090,lng:127.0478,address:"서울 강남구 선릉로162길 16",phone:"02-545-5554",
+ hours:"런치 12:00–14:30 / 디너 18:30–21:30 / 일·월 휴무",price:"런치 95,000 · 디너 165,000원~",
+ desc:"시즌1 흑수저 '트리플스타'의 컨템퍼러리 레스토랑. 미쉐린 3스타 업장 3곳에서 수련한 경력(닉네임 유래). 서양 파인다이닝 기법에 한국 식재료를 결합한 세련된 코스.",
+ menus:[{n:"런치 코스",p:"95,000"},{n:"디너 코스",p:"165,000"},{n:"와인 페어링",p:"별도"}]},
+
+{id:417,name:"도량",grade:"tv",area:"종로·중구",district:"종로구 자하문로",cat:"중식",icon:"📺",tags:["tv","tv1"],isNew:false,tvSeason:"시즌1 흑수저",tvNick:"철가방 요리사",
+ lat:37.5795,lng:126.9700,address:"서울 종로구 자하문로6길 6-2",phone:"02-730-1234",
+ hours:"매일 11:30–21:30 / 월 휴무",price:"짜장면 11,000원~",
+ desc:"시즌1 흑수저 '철가방 요리사'의 중화요리 전문점. 어린 시절 짜장면 배달부터 시작한 드라마틱한 사연으로 화제. 정직하고 맛있는 정통 중화요리. 단골 위주의 소박한 동네 중식당.",
+ menus:[{n:"짜장면",p:"11,000"},{n:"짬뽕",p:"12,000"},{n:"탕수육(소)",p:"28,000"},{n:"볶음밥",p:"11,000"}]},
+
+{id:418,name:"을지로보석",grade:"tv",area:"종로·중구",district:"중구 을지로",cat:"한식 포차",icon:"📺",tags:["tv","tv1","한식"],isNew:false,tvSeason:"시즌1 흑수저",tvNick:"장사천재 조사장",
+ lat:37.5669,lng:126.9976,address:"서울 중구 마른내로 11-10",phone:"02-2268-4444",
+ hours:"매일 16:00–다음날 00:00",price:"안주 8,000원~",
+ desc:"시즌1 흑수저 '장사천재 조사장'의 을지로 감성 포차. 독창적인 안주 메뉴와 저렴한 가격으로 을지로 힙스터들에게 인기. 방송 후 더욱 붐비는 곳. 예약 없이 방문 가능하나 웨이팅 있음.",
+ menus:[{n:"시그니처 안주",p:"12,000~"},{n:"만두",p:"8,000"},{n:"소주·맥주",p:"4,000~"}]},
+
+/* ── 시즌2 백수저 ── */
+{id:403,name:"이타닉 가든",grade:"tv",area:"강남·서초",district:"강남구 청담 조선팰리스",cat:"뉴 코리안",icon:"📺",tags:["tv","tv2","한식"],isNew:false,tvSeason:"시즌2 백수저",tvNick:"손종원",
+ lat:37.5248,lng:127.0388,address:"서울 강남구 도산대로63길 4 조선팰리스 36층",phone:"02-6905-7077",
+ hours:"런치 12:00–14:00 / 디너 18:00–21:30 / 월 휴무 (예약 필수)",price:"런치 200,000 · 디너 320,000원~",
+ desc:"시즌2 백수저 손종원 셰프의 미쉐린 1스타 뉴 코리안 파인다이닝. 조선팰리스 36층. 각 요리마다 셰프 노트 제공. 방송 후 장원영 등 유명인 방문으로 더욱 화제. 예약 필수.",
+ menus:[{n:"런치 코스",p:"200,000"},{n:"디너 코스",p:"320,000"},{n:"와인 페어링",p:"별도"}]},
+
+{id:404,name:"홍보각",grade:"tv",area:"강남·서초",district:"강남구 역삼(노보텔)",cat:"중식 파인다이닝",icon:"📺",tags:["tv","tv2","tv1"],isNew:false,tvSeason:"시즌1·2 백수저",tvNick:"여경래",
+ lat:37.5074,lng:127.0621,address:"서울 강남구 영동대로 130 노보텔 앰배서더 강남",phone:"02-567-1501",
+ hours:"런치 12:00–14:30 / 디너 18:00–21:30",price:"코스 150,000원~",
+ desc:"시즌1·2 백수저 여경래 셰프(세계 중국요리협회 부회장)의 프리미엄 중식 레스토랑. 한국에 '불도장'을 처음 소개. 북경·광동·사천 요리를 아우르는 정통 중식 파인다이닝.",
+ menus:[{n:"런치 코스",p:"150,000"},{n:"불도장 코스",p:"220,000"},{n:"베이징덕",p:"별도"}]},
+
+{id:419,name:"카덴",grade:"tv",area:"마포·홍대",district:"마포구 연희동",cat:"일식 이자카야",icon:"📺",tags:["tv","tv2","일식"],isNew:false,tvSeason:"시즌2 백수저",tvNick:"정호영",
+ lat:37.5645,lng:126.9258,address:"서울 마포구 연희로 52",phone:"02-333-5544",
+ hours:"런치 12:00–14:00 / 디너 18:00–22:00 / 월 휴무",price:"런치정식 30,000 · 저녁 코스 80,000원~",
+ desc:"시즌2 백수저 정호영 셰프의 연희동 이자카야·일식당. TV에서 유쾌한 캐릭터와 달리 담백하고 디테일한 요리로 연희동 필수 코스 등극. 정갈한 런치 정식과 저녁 사시미·계절 안주.",
+ menus:[{n:"런치 정식",p:"30,000"},{n:"모둠 사시미",p:"50,000"},{n:"제철 안주",p:"20,000~"},{n:"일본 위스키",p:"별도"}]},
+
+{id:420,name:"오스테리아 샘킴",grade:"tv",area:"마포·홍대",district:"마포구 합정동",cat:"이탈리안",icon:"📺",tags:["tv","tv2"],isNew:false,tvSeason:"시즌2 백수저",tvNick:"샘킴",
+ lat:37.5497,lng:126.9134,address:"서울 마포구 토정로 3길 11",phone:"02-332-3330",
+ hours:"런치 12:00–14:30 / 디너 18:00–21:30 / 월 휴무",price:"런치 60,000 · 디너 120,000원~",
+ desc:"시즌2 백수저 샘킴 셰프의 이탈리안. 드라마 '파스타'의 실제 모델로도 유명. 인공 조미료 배제한 자연주의 이탈리안 요리가 특징. 합정점은 좀 더 캐주얼한 분위기.",
+ menus:[{n:"런치 코스",p:"60,000"},{n:"디너 코스",p:"120,000"},{n:"트러플 파스타",p:"35,000"},{n:"이탈리아 와인",p:"별도"}]},
+
+{id:421,name:"호빈",grade:"tv",area:"용산·이태원",district:"용산구 앰배서더 풀만",cat:"중식 파인다이닝",icon:"📺",tags:["tv","tv2"],isNew:false,tvSeason:"시즌2 백수저",tvNick:"후덕죽(마스터 셰프·57년 경력)",
+ lat:37.5418,lng:126.9709,address:"서울 용산구 서빙고로 96 앰배서더 서울 풀만 호텔",phone:"02-798-9888",
+ hours:"런치 12:00–14:30 / 디너 18:00–21:30",price:"코스 120,000원~",
+ desc:"시즌2 백수저 '후덕죽' 미쉐린 1스타 중식당. 57년 경력의 중식 대가. 정통 광둥 요리와 베이징덕이 포함된 보양채보 코스가 시그니처. 창밖 한강 뷰와 함께하는 격조 있는 중식.",
+ menus:[{n:"런치 코스",p:"120,000"},{n:"보양채보 코스",p:"180,000"},{n:"베이징덕",p:"별도"},{n:"딤섬 세트",p:"55,000"}]},
+
+{id:422,name:"테이블포포",grade:"tv",area:"기타지역",district:"충청남도 태안",cat:"컨템퍼러리",icon:"📺",tags:["tv","tv2"],isNew:false,tvSeason:"시즌2 백수저",tvNick:"김성운 ('4명을 위한 식탁')",
+ lat:36.7449,lng:126.3007,address:"충청남도 태안군 소원면 (예약 후 위치 안내)",phone:"041-671-1234",
+ hours:"완전 예약제 (인스타그램 @tableforpo_official)",price:"코스 150,000원~",
+ desc:"시즌2 백수저 김성운 셰프의 미쉐린 1스타 레스토랑 '4명을 위한 식탁'. 셰프의 집을 방문한 듯 편안하고 따뜻한 컨템퍼러리 다이닝. 태안 지역 식재료를 활용한 독창적 코스.",
+ menus:[{n:"시즌 코스",p:"150,000~"},{n:"와인 페어링",p:"별도"}]},
+
+/* ── 시즌2 흑수저 ── */
+{id:423,name:"옥동식",grade:"tv",area:"마포·홍대",district:"마포구 서교동",cat:"국물요리",icon:"📺",tags:["tv","tv2","국물요리"],isNew:false,tvSeason:"시즌2 흑수저",tvNick:"뉴욕에 간 돼지곰탕",
+ lat:37.5504,lng:126.9267,address:"서울 마포구 와우산로 37",phone:"02-338-5568",
+ hours:"화~일 11:30–20:30 / 월 휴무 (재료소진마감)",price:"돼지곰탕 16,000원~",
+ desc:"시즌2 흑수저 '뉴욕에 간 돼지곰탕'의 미쉐린 선정 국밥집. 투명한 맑은 돼지곰탕으로 국밥의 이미지를 뒤집음. 뉴욕 팝업까지 성공시킨 '세계가 주목한 국밥'. 웨이팅 줄 필수.",
+ menus:[{n:"돼지곰탕",p:"16,000"},{n:"특돼지곰탕",p:"19,000"},{n:"수육",p:"28,000"},{n:"밥·깍두기",p:"기본"}]},
+
+{id:410,name:"소울(Soul)",grade:"tv",area:"용산·이태원",district:"용산구 해방촌",cat:"컨템퍼러리 한식",icon:"📺",tags:["tv","tv2","한식"],isNew:true,tvSeason:"시즌2 백수저",tvNick:"김희은 (아기 맹수 스승)",
+ lat:37.5398,lng:126.9888,address:"서울 용산구 신흥로 42",phone:"02-792-7770",
+ hours:"디너 18:00–21:00 / 월·화 휴무 (예약 필수)",price:"디너 코스 190,000원~",
+ desc:"시즌2 백수저 김희은 셰프(흑수저 아기 맹수 스승)의 해방촌 레스토랑. 2026 미쉐린 신규 1스타 획득. 한국 식재료와 전통 조리 방식을 현대적으로 풀어낸 정교한 코스.",
+ menus:[{n:"디너 코스",p:"190,000~"},{n:"와인 페어링",p:"별도"}]},
+
+{id:424,name:"솔밤",grade:"tv",area:"강남·서초",district:"강남구 학동",cat:"컨템퍼러리 한식",icon:"📺",tags:["tv","tv2","한식"],isNew:false,tvSeason:"시즌2 흑수저",tvNick:"아기 맹수 (김시현)",
+ lat:37.5175,lng:127.0325,address:"서울 강남구 학동로17길 17",phone:"02-512-7070",
+ hours:"런치 12:00–14:00 / 디너 18:30–21:00 / 일·월 휴무 (예약 필수)",price:"코스 120,000원~",
+ desc:"시즌2 흑수저 '아기 맹수' 김시현 셰프의 미쉐린 선정 한식 다이닝. 어린 나이에 거침없는 요리 스타일로 전국적 주목. 스승 김희은 셰프(소울)에게서 배운 실력파. 독창적 한식 코스.",
+ menus:[{n:"런치 코스",p:"120,000"},{n:"디너 코스",p:"160,000"},{n:"전통주 페어링",p:"별도"}]},
+
+{id:425,name:"비스트로 드 욘빌",grade:"tv",area:"강남·서초",district:"강남구 청담동",cat:"프렌치",icon:"📺",tags:["tv","tv2"],isNew:false,tvSeason:"시즌2 흑수저",tvNick:"프렌치 파파",
+ lat:37.5248,lng:127.0402,address:"서울 강남구 도산대로67길 5-1",phone:"02-545-7701",
+ hours:"런치 12:00–14:00 / 디너 18:00–21:30 / 월 휴무",price:"런치 80,000 · 디너 160,000원~",
+ desc:"시즌2 흑수저 '프렌치 파파'의 미쉐린 선정 프렌치 레스토랑. 파리 클래식 비스트로 분위기 재현. 가족을 위해 커리어를 내려놓았다가 복귀한 감동적 서사로 큰 인기. 청담 정통 프렌치.",
+ menus:[{n:"런치 코스",p:"80,000"},{n:"디너 코스",p:"160,000"},{n:"오리 콩피",p:"45,000"},{n:"프렌치 와인",p:"별도"}]},
+
+{id:426,name:"유용욱 바베큐연구소",grade:"tv",area:"용산·이태원",district:"용산구 남영동",cat:"바베큐",icon:"📺",tags:["tv","tv2","육류"],isNew:false,tvSeason:"시즌2 흑수저",tvNick:"바베큐연구소장",
+ lat:37.5413,lng:126.9721,address:"서울 용산구 한강대로76길 11",phone:"02-797-9990",
+ hours:"디너 18:00–23:00 / 일·월 휴무 (예약 필수)",price:"바베큐 코스 120,000원~",
+ desc:"시즌2 흑수저 '바베큐연구소장' 유용욱 셰프의 고급 바베큐 레스토랑. 프라이빗하게 즐기는 바베큐 코스. 훈제·직화 기법을 과학적으로 연구한 정교한 바베큐가 시그니처. 완전 예약제.",
+ menus:[{n:"바베큐 코스",p:"120,000~"},{n:"스모크 립",p:"45,000"},{n:"비스킷",p:"8,000"},{n:"버번 위스키",p:"별도"}]},
+
+{id:427,name:"소바쥬",grade:"tv",area:"마포·홍대",district:"마포구 도화동",cat:"일식",icon:"📺",tags:["tv","tv2","일식"],isNew:false,tvSeason:"시즌2 흑수저",tvNick:"무쇠팔 (박주성)",
+ lat:37.5421,lng:126.9493,address:"서울 마포구 마포대로 38",phone:"02-712-3388",
+ hours:"디너 18:00–22:00 / 일·월 휴무 (예약 필수)",price:"코스 90,000원~",
+ desc:"시즌2 흑수저 '무쇠팔' 박주성 셰프의 미쉐린 선정 일식 레스토랑. 희귀 난치병 투병 중에도 자신만의 요리 세계를 구현해 큰 울림을 줌. 메밀을 주재료로 한 독창적인 일식 코스.",
+ menus:[{n:"오마카세 코스",p:"90,000~"},{n:"메밀 코스",p:"110,000"},{n:"사케 페어링",p:"별도"}]},
+
+{id:428,name:"오리지널 넘버스",grade:"tv",area:"강남·서초",district:"강남구 청담동",cat:"프렌치",icon:"📺",tags:["tv","tv2"],isNew:false,tvSeason:"시즌2 흑수저",tvNick:"삐딱한 천재 (이찬양)",
+ lat:37.5256,lng:127.0419,address:"서울 강남구 도산대로67길 11",phone:"02-511-4433",
+ hours:"디너 18:30–22:00 / 일·월 휴무 (예약 필수)",price:"코스 150,000원~",
+ desc:"시즌2 흑수저 '삐딱한 천재' 이찬양 셰프의 청담 프렌치 레스토랑. 스승 이준 셰프(스와니예)를 꺾은 기발한 전략과 과감한 도전으로 화제. 청담 도산대로의 새로운 프렌치 명소.",
+ menus:[{n:"디너 코스",p:"150,000~"},{n:"와인 페어링",p:"별도"}]},
+
 {id:1,name:"우래옥",grade:"bib",area:"종로·중구",district:"중구 주교동",cat:"냉면",icon:"❄️",tags:["냉면","면류"],isNew:false,
  lat:37.5664,lng:126.9955,address:"서울 중구 창경궁로5길 13",phone:"02-2265-0151",
  hours:"월~토 11:30–21:00 (브레이크 15:00–17:00) / 일 휴무",price:"평양냉면 19,000원~",
@@ -480,10 +658,10 @@ const R=[
 // ─── helpers ───
 const GRADE_COLORS={
   "3star":"#92400E","2star":"#B45309","1star":"#D97706",
-  "bib":"#B91C1C","bib-new":"#166534"
+  "bib":"#B91C1C","bib-new":"#166534","tv":"#7C3AED"
 };
-const GRADE_LABEL={"3star":"⭐⭐⭐ 3스타","2star":"⭐⭐ 2스타","1star":"⭐ 1스타","bib":"🍜 빕구르망"};
-const GRADE_ORDER={"3star":0,"2star":1,"1star":2,"bib":3};
+const GRADE_LABEL={"3star":"⭐⭐⭐ 3스타","2star":"⭐⭐ 2스타","1star":"⭐ 1스타","bib":"🍜 빕구르망","tv":"📺 흑백요리사"};
+const GRADE_ORDER={"3star":0,"2star":1,"1star":2,"bib":3,"tv":4};
 
 // ─── MAP ───
 const map=L.map('map',{zoomControl:true}).setView([37.548,126.98],12);
@@ -530,6 +708,9 @@ function getF(){
   if(cur==='2star')return R.filter(r=>r.grade==='2star');
   if(cur==='1star')return R.filter(r=>r.grade==='1star');
   if(cur==='bib')return R.filter(r=>r.grade==='bib');
+  if(cur==='tv')return R.filter(r=>r.grade==='tv');
+  if(cur==='tv1')return R.filter(r=>r.tags&&r.tags.includes('tv1'));
+  if(cur==='tv2')return R.filter(r=>r.tags&&r.tags.includes('tv2'));
   if(cur==='new')return R.filter(r=>r.isNew);
   const foodTags=['냉면','국물요리','육류','한식','일식'];
   if(foodTags.includes(cur))return R.filter(r=>r.tags.includes(cur));
@@ -558,14 +739,15 @@ function renderAll(){
       lastGrade=r.grade;
     }
 
-    const isStar=r.grade!=='bib';
+    const isStar=r.grade!=='bib'&&r.grade!=='tv';
     const color=r.grade==='bib'&&r.isNew?GRADE_COLORS['bib-new']:GRADE_COLORS[r.grade];
-    const stripeClass=r.grade==='3star'?'cs-3star':r.grade==='2star'?'cs-2star':r.grade==='1star'?'cs-1star':r.isNew?'cs-bib-new':'cs-bib';
-    const tagClass=r.grade==='3star'?'t3':r.grade==='2star'?'t2':r.grade==='1star'?'t1':'tbib';
-    const priceClass=isStar?'star-price':'bib-price';
-    const mipClass=isStar?'star-mip':'bib-mip';
-    const hlClass=isStar?'hl-star':'hl-bib';
-    const descBdr=isStar?'bdr-star':'bdr-bib';
+    const stripeClass=r.grade==='3star'?'cs-3star':r.grade==='2star'?'cs-2star':r.grade==='1star'?'cs-1star':r.grade==='tv'?'cs-tv':r.isNew?'cs-bib-new':'cs-bib';
+    const tagClass=r.grade==='3star'?'t3':r.grade==='2star'?'t2':r.grade==='1star'?'t1':r.grade==='tv'?'ttv':'tbib';
+    const priceClass=isStar?'star-price':r.grade==='tv'?'star-price':'bib-price';
+    const mipClass=isStar||r.grade==='tv'?'star-mip':'bib-mip';
+    const hlClass=r.grade==='tv'?'hl-tv':isStar?'hl-star':'hl-bib';
+    const descBdr=isStar||r.grade==='tv'?'bdr-star':'bdr-bib';
+    const tvBadge=r.grade==='tv'?`<div style="font-size:11px;color:#7C3AED;font-weight:700;margin-top:4px;background:#F3E8FF;display:inline-block;padding:2px 8px;border-radius:6px">🎬 ${r.tvSeason} · ${r.tvNick}</div>`:'';
 
     const d=document.createElement('div');
     d.className='card';d.id='card-'+r.id;
@@ -588,6 +770,7 @@ function renderAll(){
           <div class="crow3">
             <div class="cprice ${priceClass}">💰 ${r.price}</div>
             <div class="cmenu">${r.menus.map(m=>m.n).slice(0,3).join(' · ')}</div>
+            ${tvBadge}
           </div>
         </div>
         <div class="cchev" id="chev-${r.id}">▾</div>
@@ -621,11 +804,11 @@ function tog(id){
   const was=det.classList.contains('open');
   document.querySelectorAll('.cdet').forEach(x=>x.classList.remove('open'));
   document.querySelectorAll('.cchev').forEach(x=>x.classList.remove('open'));
-  document.querySelectorAll('.card').forEach(x=>{x.classList.remove('hl-bib');x.classList.remove('hl-star');});
+  document.querySelectorAll('.card').forEach(x=>{x.classList.remove('hl-bib');x.classList.remove('hl-star');x.classList.remove('hl-tv');});
   if(!was){
     det.classList.add('open');chev.classList.add('open');
     const r=R.find(x=>x.id===id);
-    card.classList.add(r&&r.grade!=='bib'?'hl-star':'hl-bib');
+    card.classList.add(r&&r.grade==='tv'?'hl-tv':r&&r.grade!=='bib'?'hl-star':'hl-bib');
     if(r&&markers[id]){map.setView([r.lat,r.lng],15,{animate:true});markers[id].openPopup();}
   }
 }
